@@ -3,6 +3,7 @@ package pl.purpleclient.client;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
@@ -22,6 +23,7 @@ public final class PurpleClientScreen extends Screen {
     private static boolean SPOTIFY_HOLO_SHOW_TRACK = true;
     private static int SPOTIFY_HOLO_POSITION = 0;
     private static int SPOTIFY_HOLO_MODE = 0;
+    private EditBox spotifySearchBox;
 
     private final String category;
     private int panelLeft;
@@ -84,14 +86,45 @@ public final class PurpleClientScreen extends Screen {
                 .bounds(panelLeft + sidebarWidth + 18, panelTop + 148, 250, 26).build());
         }
         if ("Spotify Holo".equals(category)) {
-            this.addRenderableWidget(Button.builder(Component.literal("Display mode: " + spotifyModeLabel()), b -> {
+            int sx = panelLeft + sidebarWidth + 18;
+            this.addRenderableWidget(Button.builder(Component.literal("Tryb: " + spotifyModeLabel()), b -> {
                     SPOTIFY_HOLO_MODE = (SPOTIFY_HOLO_MODE + 1) % 2;
                     Minecraft.getInstance().setScreen(new PurpleClientScreen("Spotify Holo"));
-                })
-                .bounds(panelLeft + sidebarWidth + 18, panelTop + 112, 250, 26).build());
-            this.addRenderableWidget(Button.builder(Component.literal("Back to Visuals"), b ->
+                }).bounds(sx + 270, panelTop + 104, 150, 24).build());
+            this.addRenderableWidget(Button.builder(Component.literal("Połącz Spotify"), b -> SpotifyService.connect())
+                .bounds(sx, panelTop + 104, 150, 24).build());
+            this.addRenderableWidget(Button.builder(Component.literal("Odśwież utwór"), b -> SpotifyService.refreshPlayback())
+                .bounds(sx + 158, panelTop + 104, 105, 24).build());
+
+            spotifySearchBox = new EditBox(this.font, sx, panelTop + 138, 250, 24, Component.literal("Szukaj utworu"));
+            spotifySearchBox.setMaxLength(120);
+            spotifySearchBox.setValue("");
+            this.addRenderableWidget(spotifySearchBox);
+            this.addRenderableWidget(Button.builder(Component.literal("Szukaj"), b -> {
+                    if (spotifySearchBox != null && !spotifySearchBox.getValue().isBlank())
+                        SpotifyService.search(spotifySearchBox.getValue().trim());
+                }).bounds(sx + 258, panelTop + 138, 90, 24).build());
+
+            int resultIndex = 0;
+            for (SpotifyService.Track track : SpotifyService.results()) {
+                if (resultIndex >= 5) break;
+                int rowY = panelTop + 174 + resultIndex * 27;
+                this.addRenderableWidget(Button.builder(Component.literal("▶  " + track.toString()), b -> SpotifyService.play(track.uri()))
+                    .bounds(sx, rowY, Math.min(430, panelWidth - sidebarWidth - 38), 23).build());
+                resultIndex++;
+            }
+            int controlsY = panelTop + 315;
+            this.addRenderableWidget(Button.builder(Component.literal("⏮"), b -> SpotifyService.previous())
+                .bounds(sx, controlsY, 62, 25).build());
+            this.addRenderableWidget(Button.builder(Component.literal("⏸ Pauza"), b -> SpotifyService.pause())
+                .bounds(sx + 70, controlsY, 92, 25).build());
+            this.addRenderableWidget(Button.builder(Component.literal("⏭"), b -> SpotifyService.next())
+                .bounds(sx + 170, controlsY, 62, 25).build());
+            this.addRenderableWidget(Button.builder(Component.literal("Odśwież"), b -> SpotifyService.refreshPlayback())
+                .bounds(sx + 240, controlsY, 90, 25).build());
+            this.addRenderableWidget(Button.builder(Component.literal("Wróć"), b ->
                     Minecraft.getInstance().setScreen(new PurpleClientScreen("Visuals")))
-                .bounds(panelLeft + sidebarWidth + 18, panelTop + 148, 250, 26).build());
+                .bounds(sx, panelTop + 354, 90, 24).build());
         }
         if (!"Config".equals(category) && !"Spotify Holo".equals(category)) {
             int contentX = panelLeft + sidebarWidth + 18;
@@ -182,12 +215,13 @@ public final class PurpleClientScreen extends Screen {
         graphics.drawString(this.font, category, contentX, panelTop + 48, TEXT, true);
 
         if ("Spotify Holo".equals(category)) {
-            graphics.fill(contentX, panelTop + 91, contentRight, panelTop + 220, 0xFF211C2C);
-            graphics.fill(contentX, panelTop + 91, contentX + 3, panelTop + 220, PURPLE);
-            graphics.drawString(this.font, "SPOTIFY HOLO CONFIGURATION", contentX + 16, panelTop + 110, TEXT, true);
-            graphics.drawString(this.font, "Display mode: " + spotifyModeLabel(), contentX + 16, panelTop + 136, MUTED, false);
-            graphics.drawString(this.font, "Stick = HUD overlay | Fly = floating world text", contentX + 16, panelTop + 160, MUTED, false);
-            graphics.drawString(this.font, "Spotify playback connection is not implemented yet.", contentX + 16, panelTop + 188, 0xFFFFC878, false);
+            graphics.fill(contentX, panelTop + 91, contentRight, panelTop + 400, 0xFF211C2C);
+            graphics.fill(contentX, panelTop + 91, contentX + 3, panelTop + 400, PURPLE);
+            graphics.drawString(this.font, "SPOTIFY PLAYER", contentX + 16, panelTop + 94, TEXT, true);
+            graphics.drawString(this.font, "Tryb: " + spotifyModeLabel(), contentX + 16, panelTop + 124, MUTED, false);
+            graphics.drawString(this.font, "Status: " + SpotifyService.status(), contentX + 16, panelTop + 296, 0xFFB9E7C6, false);
+            graphics.drawString(this.font, "Teraz: " + SpotifyService.currentTrack(), contentX + 16, panelTop + 345, TEXT, false);
+            graphics.drawString(this.font, "Wybierz wynik wyszukiwania, aby rozpocząć odtwarzanie.", contentX + 16, panelTop + 380, MUTED, false);
         } else if ("Config".equals(category)) {
             graphics.fill(contentX, panelTop + 91, contentRight, panelTop + 220, 0xFF211C2C);
             graphics.fill(contentX, panelTop + 91, contentX + 3, panelTop + 220, PURPLE);
