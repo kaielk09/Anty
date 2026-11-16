@@ -16,3 +16,16 @@
 @media(max-width:420px){.demo-tab{font-size:7px}.demo-tab span{display:none}.demo-config-controls{grid-template-columns:1fr 1fr}}
 
 .demo-module-grid[hidden]{display:none}
+
+/* Expanded per-module Visuals configuration */
+.demo-module.enabled{border-color:#a978ff55;background:linear-gradient(100deg,#a978ff13,#191522)}
+.demo-module.enabled .demo-module-icon{background:#a978ff2a;border-color:#a978ff55}
+.demo-config-controls{grid-template-columns:repeat(3,minmax(0,1fr))}
+.demo-config-controls .visual-setting{min-width:0;padding:8px;background:#211b2b;border:1px solid #ffffff0b;border-radius:6px}
+.demo-config-controls .visual-setting span{font-size:8px;color:#b9a9cb}
+.demo-config-controls .visual-setting input[type=color]{width:100%;height:25px;border:0;background:transparent;padding:0}
+.demo-config-controls .visual-setting input[type=checkbox]{accent-color:#a978ff}
+.demo-config-controls .visual-setting output{font-size:8px;color:#c8aaff}
+.demo-module-grid{max-height:610px;overflow-y:auto;padding:2px 5px 2px 0;scrollbar-width:thin;scrollbar-color:#67458d #171321}
+.demo-module-grid::-webkit-scrollbar{width:5px}.demo-module-grid::-webkit-scrollbar-thumb{background:#67458d;border-radius:5px}
+@media(max-width:760px){.demo-config-controls{grid-template-columns:repeat(2,minmax(0,1fr))}.demo-module-grid{max-height:520px}}
