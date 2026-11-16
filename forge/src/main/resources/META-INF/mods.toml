@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[52,)"
+loaderVersion="[51,)"
 license="MIT"
 [[mods]]
 modId="purpleclient"
@@ -9,12 +9,12 @@ description='''Purple Client in-game GUI and configurable keybind.'''
 [[dependencies.purpleclient]]
 modId="forge"
 mandatory=true
-versionRange="[52,)"
+versionRange="[51,)"
 ordering="NONE"
 side="CLIENT"
 [[dependencies.purpleclient]]
 modId="minecraft"
 mandatory=true
-versionRange="[1.21.1,1.22)"
+versionRange="[1.21,1.21.1)"
 ordering="NONE"
 side="CLIENT"
