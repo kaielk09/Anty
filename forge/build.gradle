@@ -1,22 +1,36 @@
 plugins {
-    id 'net.minecraftforge.gradle' version '[6.0.24,6.2)'
+    id 'net.minecraftforge.gradle' version '7.0.40'
 }
-version = '0.1.0'
-group = 'pl.purpleclient'
-base { archivesName = 'purpleclient-forge-1.21' }
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+base {
+    archivesName = 'purpleclient-forge-26.3'
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(25)
+}
+
 minecraft {
-    mappings channel: 'official', version: '1.21'
+    mappings channel: 'official', version: '26.3'
     copyIdeResources = true
     runs {
         client {
             workingDirectory project.file('run')
             property 'forge.logging.console.level', 'debug'
-            mods { purpleclient { source sourceSets.main } }
+            mods {
+                purpleclient {
+                    source sourceSets.main
+                }
+            }
         }
     }
 }
+
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.21-51.0.33'
+    minecraft 'net.minecraftforge:forge:26.3-66.1.8'
 }
-tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 25
+}
