@@ -13,17 +13,6 @@ java {
 
 minecraft {
     mappings channel: 'official', version: '26.3'
-    runs {
-        client {
-            workingDirectory project.file('run')
-            property 'forge.logging.console.level', 'debug'
-            mods {
-                purpleclient {
-                    source sourceSets.main
-                }
-            }
-        }
-    }
 }
 
 dependencies {
