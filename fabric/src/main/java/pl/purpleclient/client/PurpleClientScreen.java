@@ -19,6 +19,8 @@ public final class PurpleClientScreen extends Screen {
 
     private static final Map<String, Boolean> ENABLED = new HashMap<>();
     private static final Map<String, Integer> PRESETS = new HashMap<>();
+    private static boolean SPOTIFY_HOLO_SHOW_TRACK = true;
+    private static int SPOTIFY_HOLO_POSITION = 0;
 
     private final String category;
     private int panelLeft;
@@ -32,11 +34,11 @@ public final class PurpleClientScreen extends Screen {
     private static final List<String> VISUALS = List.of(
         "Fullbright", "Zoom", "Coordinates", "FPS Counter",
         "Ping Display", "Armor HUD", "Potion HUD", "Keystrokes",
-        "Clock", "Compass", "Crosshair Editor", "Block Outline", "Armor Durability", "Custom Sky", "Weather Changer", "Custom Fog", "Ambient Particles", "Item Physics", "Totem Animation", "Jump Circle"
+        "Clock", "Compass", "Crosshair Editor", "Block Outline", "Armor Durability", "Custom Sky", "Weather Changer", "Custom Fog", "Ambient Particles", "Item Physics", "Totem Animation", "Jump Circle", "Spotify Holo"
     );
 
     public PurpleClientScreen() {
-        this("All");
+        this("Visuals");
     }
 
     private PurpleClientScreen(String category) {
@@ -54,7 +56,7 @@ public final class PurpleClientScreen extends Screen {
         int sidebarWidth = 142;
         int tabX = panelLeft + 12;
         int tabWidth = sidebarWidth - 24;
-        String[] categories = {"All", "Combat", "Movement", "Visuals"};
+        String[] categories = {"Visuals", "Config"};
         for (int i = 0; i < categories.length; i++) {
             String selected = categories[i];
             this.addRenderableWidget(Button.builder(Component.literal(
@@ -68,7 +70,19 @@ public final class PurpleClientScreen extends Screen {
             .bounds(panelLeft + panelWidth - 102, panelTop + panelHeight - 38, 86, 25).build());
 
         List<String> modules = getModules();
-        if (!"Combat".equals(category)) {
+        if ("Config".equals(category)) {
+            this.addRenderableWidget(Button.builder(Component.literal("Show track title: " + (SPOTIFY_HOLO_SHOW_TRACK ? "ON" : "OFF")), b -> {
+                    SPOTIFY_HOLO_SHOW_TRACK = !SPOTIFY_HOLO_SHOW_TRACK;
+                    Minecraft.getInstance().setScreen(new PurpleClientScreen("Config"));
+                })
+                .bounds(panelLeft + sidebarWidth + 18, panelTop + 112, 250, 26).build());
+            this.addRenderableWidget(Button.builder(Component.literal("Holo position: " + spotifyPositionLabel()), b -> {
+                    SPOTIFY_HOLO_POSITION = (SPOTIFY_HOLO_POSITION + 1) % 3;
+                    Minecraft.getInstance().setScreen(new PurpleClientScreen("Config"));
+                })
+                .bounds(panelLeft + sidebarWidth + 18, panelTop + 148, 250, 26).build());
+        }
+        if (!"Config".equals(category)) {
             int contentX = panelLeft + sidebarWidth + 18;
             int contentWidth = panelWidth - sidebarWidth - 36;
             int columnWidth = (contentWidth - 10) / 2;
@@ -95,10 +109,7 @@ public final class PurpleClientScreen extends Screen {
 
     private List<String> getModules() {
         List<String> modules = new ArrayList<>();
-        if ("All".equals(category) || "Movement".equals(category)) {
-            modules.addAll(MOVEMENT);
-        }
-        if ("All".equals(category) || "Visuals".equals(category)) {
+        if ("Visuals".equals(category)) {
             modules.addAll(VISUALS);
         }
         return modules;
@@ -106,6 +117,14 @@ public final class PurpleClientScreen extends Screen {
 
     private static String toggleLabel(String module) {
         return (ENABLED.getOrDefault(module, false) ? "ON  " : "OFF  ") + module;
+    }
+
+    private static String spotifyPositionLabel() {
+        return switch (SPOTIFY_HOLO_POSITION) {
+            case 1 -> "Bottom left";
+            case 2 -> "Bottom right";
+            default -> "Top center";
+        };
     }
 
     private static String presetLabel(String module) {
@@ -141,14 +160,15 @@ public final class PurpleClientScreen extends Screen {
         graphics.drawString(this.font, "CATEGORIES", panelLeft + 16, panelTop + 76, 0xFF8F829F, false);
 
         graphics.drawString(this.font, "PURPLE CLIENT  /  MODULE MANAGER", contentX, panelTop + 24, MUTED, false);
-        graphics.drawString(this.font, category.equals("All") ? "Wszystkie moduły" : category, contentX, panelTop + 48, TEXT, true);
+        graphics.drawString(this.font, category, contentX, panelTop + 48, TEXT, true);
 
-        if ("Combat".equals(category)) {
-            graphics.fill(contentX, panelTop + 91, contentRight, panelTop + 195, 0xFF211C2C);
-            graphics.fill(contentX, panelTop + 91, contentX + 3, panelTop + 195, PURPLE);
-            graphics.drawString(this.font, "COMBAT", contentX + 16, panelTop + 110, TEXT, true);
-            graphics.drawString(this.font, "Ta kategoria jest zarezerwowana na przyszłość.", contentX + 16, panelTop + 132, MUTED, false);
-            graphics.drawString(this.font, "Na tym etapie nie ma tu automatyzacji ataków.", contentX + 16, panelTop + 151, MUTED, false);
+        if ("Config".equals(category)) {
+            graphics.fill(contentX, panelTop + 91, contentRight, panelTop + 220, 0xFF211C2C);
+            graphics.fill(contentX, panelTop + 91, contentX + 3, panelTop + 220, PURPLE);
+            graphics.drawString(this.font, "SPOTIFY HOLO", contentX + 16, panelTop + 110, TEXT, true);
+            graphics.drawString(this.font, "Track title: " + (SPOTIFY_HOLO_SHOW_TRACK ? "enabled" : "disabled"), contentX + 16, panelTop + 135, MUTED, false);
+            graphics.drawString(this.font, "Position: " + spotifyPositionLabel(), contentX + 16, panelTop + 154, MUTED, false);
+            graphics.drawString(this.font, "Spotify account connection is not configured yet.", contentX + 16, panelTop + 184, 0xFFFFC878, false);
         } else {
             graphics.drawString(this.font, "Kliknij moduł, aby zmienić jego stan. CFG zmienia profil ustawień.", contentX,
                 panelTop + 68, MUTED, false);
