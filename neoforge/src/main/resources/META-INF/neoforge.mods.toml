@@ -9,12 +9,12 @@ description='''Purple Client in-game GUI and configurable keybind.'''
 [[dependencies.purpleclient]]
 modId="neoforge"
 type="required"
-versionRange="[21.1,)"
+versionRange="[21.0,)"
 ordering="NONE"
 side="CLIENT"
 [[dependencies.purpleclient]]
 modId="minecraft"
 type="required"
-versionRange="[1.21.1,1.22)"
+versionRange="[1.21]"
 ordering="NONE"
 side="CLIENT"
