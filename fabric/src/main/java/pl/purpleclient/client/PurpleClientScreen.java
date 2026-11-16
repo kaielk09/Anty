@@ -6,50 +6,128 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public final class PurpleClientScreen extends Screen {
     private static final int PURPLE = 0xFF9B65FF;
     private static final int TEXT = 0xFFF4EDFF;
     private static final int MUTED = 0xFFB6A8C9;
     private static final int PANEL = 0xF0151420;
+
+    private static final Map<String, Boolean> ENABLED = new HashMap<>();
+    private static final Map<String, Integer> PRESETS = new HashMap<>();
+
+    private final String category;
     private int panelLeft;
     private int panelTop;
     private int panelWidth;
     private int panelHeight;
 
+    private static final List<String> MOVEMENT = List.of(
+        "Sprint HUD", "Speedometer", "Direction HUD"
+    );
+    private static final List<String> VISUALS = List.of(
+        "Fullbright", "Zoom", "Coordinates", "FPS Counter",
+        "Ping Display", "Armor HUD", "Potion HUD", "Keystrokes",
+        "Clock", "Compass", "Crosshair Editor", "Block Outline"
+    );
+
     public PurpleClientScreen() {
+        this("All");
+    }
+
+    private PurpleClientScreen(String category) {
         super(Component.literal("Purple Client"));
+        this.category = category;
     }
 
     @Override
     protected void init() {
-        panelWidth = Math.min(560, this.width - 32);
-        panelHeight = Math.min(330, this.height - 32);
+        panelWidth = Math.min(700, this.width - 24);
+        panelHeight = Math.min(420, this.height - 24);
         panelLeft = (this.width - panelWidth) / 2;
         panelTop = (this.height - panelHeight) / 2;
 
-        int sidebarWidth = Math.max(118, Math.min(142, panelWidth / 4));
-        int buttonX = panelLeft + 14;
-        int buttonWidth = sidebarWidth - 28;
-        this.addRenderableWidget(Button.builder(Component.literal("⌂  Przegląd"), b -> {})
-            .bounds(buttonX, panelTop + 91, buttonWidth, 25).build());
-        this.addRenderableWidget(Button.builder(Component.literal("⚙  Ustawienia"), b ->
-                Minecraft.getInstance().setScreen(new PurpleClientSettingsScreen(this)))
-            .bounds(buttonX, panelTop + 122, buttonWidth, 25).build());
-        this.addRenderableWidget(Button.builder(Component.literal("Zamknij menu"), b ->
+        int sidebarWidth = 142;
+        int tabX = panelLeft + 12;
+        int tabWidth = sidebarWidth - 24;
+        String[] categories = {"All", "Combat", "Movement", "Visuals"};
+        for (int i = 0; i < categories.length; i++) {
+            String selected = categories[i];
+            this.addRenderableWidget(Button.builder(Component.literal(
+                    (selected.equals(category) ? "•  " : "   ") + selected), b ->
+                    Minecraft.getInstance().setScreen(new PurpleClientScreen(selected)))
+                .bounds(tabX, panelTop + 94 + i * 34, tabWidth, 27).build());
+        }
+
+        this.addRenderableWidget(Button.builder(Component.literal("Zamknij"), b ->
                 Minecraft.getInstance().setScreen(null))
-            .bounds(panelLeft + panelWidth - 126, panelTop + panelHeight - 42, 112, 26).build());
+            .bounds(panelLeft + panelWidth - 102, panelTop + panelHeight - 38, 86, 25).build());
+
+        List<String> modules = getModules();
+        if (!"Combat".equals(category)) {
+            int contentX = panelLeft + sidebarWidth + 18;
+            int contentWidth = panelWidth - sidebarWidth - 36;
+            int columnWidth = (contentWidth - 10) / 2;
+            for (int i = 0; i < modules.size(); i++) {
+                String module = modules.get(i);
+                int column = i % 2;
+                int row = i / 2;
+                int x = contentX + column * (columnWidth + 10);
+                int y = panelTop + 112 + row * 40;
+                int toggleWidth = Math.max(86, columnWidth - 63);
+                this.addRenderableWidget(Button.builder(Component.literal(toggleLabel(module)), b -> {
+                        ENABLED.put(module, !ENABLED.getOrDefault(module, false));
+                        Minecraft.getInstance().setScreen(new PurpleClientScreen(category));
+                    })
+                    .bounds(x, y, toggleWidth, 28).build());
+                this.addRenderableWidget(Button.builder(Component.literal("CFG"), b -> {
+                        PRESETS.put(module, (PRESETS.getOrDefault(module, 0) + 1) % 4);
+                        Minecraft.getInstance().setScreen(new PurpleClientScreen(category));
+                    })
+                    .bounds(x + toggleWidth + 4, y, 54, 28).build());
+            }
+        }
+    }
+
+    private List<String> getModules() {
+        List<String> modules = new ArrayList<>();
+        if ("All".equals(category) || "Movement".equals(category)) {
+            modules.addAll(MOVEMENT);
+        }
+        if ("All".equals(category) || "Visuals".equals(category)) {
+            modules.addAll(VISUALS);
+        }
+        return modules;
+    }
+
+    private static String toggleLabel(String module) {
+        return (ENABLED.getOrDefault(module, false) ? "ON  " : "OFF  ") + module;
+    }
+
+    private static String presetLabel(String module) {
+        return switch (PRESETS.getOrDefault(module, 0)) {
+            case 1 -> "Compact";
+            case 2 -> "Minimal";
+            case 3 -> "Detailed";
+            default -> "Default";
+        };
     }
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         this.renderBackground(graphics, mouseX, mouseY, partialTick);
 
-        panelWidth = Math.min(560, this.width - 32);
-        panelHeight = Math.min(330, this.height - 32);
+        panelWidth = Math.min(700, this.width - 24);
+        panelHeight = Math.min(420, this.height - 24);
         panelLeft = (this.width - panelWidth) / 2;
         panelTop = (this.height - panelHeight) / 2;
-        int sidebarWidth = Math.max(118, Math.min(142, panelWidth / 4));
-        int contentLeft = panelLeft + sidebarWidth + 22;
+        int sidebarWidth = 142;
+        int contentX = panelLeft + sidebarWidth + 20;
+        int contentRight = panelLeft + panelWidth - 18;
 
         graphics.fill(panelLeft - 2, panelTop - 2, panelLeft + panelWidth + 2, panelTop + panelHeight + 2, 0x805E35A0);
         graphics.fill(panelLeft, panelTop, panelLeft + panelWidth, panelTop + panelHeight, PANEL);
@@ -59,29 +137,38 @@ public final class PurpleClientScreen extends Screen {
 
         graphics.drawString(this.font, "PURPLE", panelLeft + 17, panelTop + 22, 0xFFB987FF, true);
         graphics.drawString(this.font, "CLIENT", panelLeft + 17, panelTop + 35, TEXT, true);
-        graphics.fill(panelLeft + 17, panelTop + 59, panelLeft + sidebarWidth - 17, panelTop + 60, 0xFF40344F);
-        graphics.drawString(this.font, "NAWIGACJA", panelLeft + 17, panelTop + 72, 0xFF8F829F, false);
+        graphics.fill(panelLeft + 16, panelTop + 59, panelLeft + sidebarWidth - 16, panelTop + 60, 0xFF40344F);
+        graphics.drawString(this.font, "CATEGORIES", panelLeft + 16, panelTop + 76, 0xFF8F829F, false);
 
-        graphics.drawString(this.font, "CENTRUM KLIENTA", contentLeft, panelTop + 25, MUTED, false);
-        graphics.drawString(this.font, "Witaj w Purple Client", contentLeft, panelTop + 49, TEXT, true);
-        graphics.drawString(this.font, "Twoje menu. Jeden skrót, szybki dostęp.", contentLeft, panelTop + 66, MUTED, false);
+        graphics.drawString(this.font, "PURPLE CLIENT  /  MODULE MANAGER", contentX, panelTop + 24, MUTED, false);
+        graphics.drawString(this.font, category.equals("All") ? "Wszystkie moduły" : category, contentX, panelTop + 48, TEXT, true);
 
-        int cardTop = panelTop + 105;
-        int cardRight = panelLeft + panelWidth - 18;
-        graphics.fill(contentLeft, cardTop, cardRight, cardTop + 66, 0xFF211C2C);
-        graphics.fill(contentLeft, cardTop, contentLeft + 3, cardTop + 66, PURPLE);
-        graphics.drawString(this.font, "PURPLE CLIENT", contentLeft + 14, cardTop + 13, TEXT, true);
-        graphics.drawString(this.font, "Interfejs jest uruchomiony i gotowy.", contentLeft + 14, cardTop + 31, MUTED, false);
-        graphics.fill(contentLeft + 14, cardTop + 49, contentLeft + 21, cardTop + 56, 0xFF72D69A);
-        graphics.drawString(this.font, "MENU AKTYWNE", contentLeft + 27, cardTop + 48, 0xFF9BE5B6, false);
+        if ("Combat".equals(category)) {
+            graphics.fill(contentX, panelTop + 91, contentRight, panelTop + 195, 0xFF211C2C);
+            graphics.fill(contentX, panelTop + 91, contentX + 3, panelTop + 195, PURPLE);
+            graphics.drawString(this.font, "COMBAT", contentX + 16, panelTop + 110, TEXT, true);
+            graphics.drawString(this.font, "Ta kategoria jest zarezerwowana na przyszłość.", contentX + 16, panelTop + 132, MUTED, false);
+            graphics.drawString(this.font, "Na tym etapie nie ma tu automatyzacji ataków.", contentX + 16, panelTop + 151, MUTED, false);
+        } else {
+            graphics.drawString(this.font, "Kliknij moduł, aby zmienić jego stan. CFG zmienia profil ustawień.", contentX,
+                panelTop + 68, MUTED, false);
+            List<String> modules = getModules();
+            for (int i = 0; i < modules.size(); i++) {
+                String module = modules.get(i);
+                int column = i % 2;
+                int row = i / 2;
+                int columnWidth = (panelWidth - sidebarWidth - 46) / 2;
+                int x = contentX + column * (columnWidth + 10);
+                int y = panelTop + 105 + row * 40;
+                graphics.fill(x, y, x + columnWidth, y + 32, 0xFF211C2C);
+                graphics.fill(x, y, x + 2, y + 32, ENABLED.getOrDefault(module, false) ? 0xFF72D69A : 0xFF574B63);
+                graphics.drawString(this.font, module, x + 9, y + 6, TEXT, false);
+                graphics.drawString(this.font, "CFG: " + presetLabel(module), x + 9, y + 19, 0xFF9F91B2, false);
+            }
+        }
 
-        int infoTop = cardTop + 78;
-        graphics.drawString(this.font, "SZYBKIE INFORMACJE", contentLeft, infoTop, 0xFFBFA6E8, true);
-        graphics.fill(contentLeft, infoTop + 17, cardRight, infoTop + 18, 0xFF393044);
-        graphics.drawString(this.font, "Otwieranie menu", contentLeft, infoTop + 29, TEXT, false);
-        graphics.drawString(this.font, "Right Shift  •  zmienisz w Opcje → Sterowanie", contentLeft, infoTop + 44, MUTED, false);
-
-        graphics.drawString(this.font, "v0.1.0  •  CLIENT", panelLeft + 17, panelTop + panelHeight - 23, 0xFF857991, false);
+        graphics.drawString(this.font, "v0.2  •  RIGHT SHIFT  •  HUD CONFIG", panelLeft + 17,
+            panelTop + panelHeight - 20, 0xFF857991, false);
         super.render(graphics, mouseX, mouseY, partialTick);
     }
 
