@@ -16,7 +16,8 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:26.3-66.1.8'
+    implementation minecraft.dependency('net.minecraftforge:forge:26.3-66.1.8')
+    annotationProcessor 'net.minecraftforge:eventbus-validator:7.0.5'
 }
 
 tasks.withType(JavaCompile).configureEach {
