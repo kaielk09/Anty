@@ -6,6 +6,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import pl.purpleclient.client.PurpleClientScreen;
+import pl.purpleclient.client.PurpleClientSettingsScreen;
 
 @Mod.EventBusSubscriber(modid = PurpleClientForge.MOD_ID, value = Dist.CLIENT)
 public final class PurpleClientClientEvents {
@@ -13,7 +14,13 @@ public final class PurpleClientClientEvents {
     public static void onClientTick(TickEvent.ClientTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
             while (PurpleClientKeybinds.OPEN_MENU.consumeClick()) {
-                Minecraft.getInstance().setScreen(new PurpleClientScreen());
+                Minecraft minecraft = Minecraft.getInstance();
+                if (minecraft.screen instanceof PurpleClientScreen
+                    || minecraft.screen instanceof PurpleClientSettingsScreen) {
+                    minecraft.setScreen(null);
+                } else if (minecraft.player != null) {
+                    minecraft.setScreen(new PurpleClientScreen());
+                }
             }
         }
     }
