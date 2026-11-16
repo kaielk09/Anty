@@ -1,42 +1,39 @@
 # Purple Client
 
-**Purple Client** to mod klientowy do Minecraft Java Edition. Nazwa repozytorium pozostaje **Anty**.
+Purple Client to klientowy projekt moda do Minecraft Java Edition. Repozytorium nadal nazywa się **Anty**.
 
-## Funkcje interfejsu
+## Struktura
 
-- Menu otwierane domyślnie klawiszem **Right Shift**.
-- Ponowne naciśnięcie tego samego klawisza zamyka menu.
-- Skrót można zmienić w **Opcje → Sterowanie → Klawisze**.
-- Ekran ustawień dostępny z poziomu menu.
-- Ciemny, fioletowy interfejs z boczną nawigacją i kartami informacyjnymi.
-- Menu nie zatrzymuje gry w tle.
+- `fabric/` — wydanie dla Fabric
+- `forge/` — wydanie dla Forge
+- `neoforge/` — wydanie dla NeoForge
+- `strona/` — responsywna strona internetowa projektu
 
-## Loadery
+## Wersja docelowa
 
-Osobne moduły znajdują się w katalogach:
-- fabric/ — Fabric
-- forge/ — Forge
-- neoforge/ — NeoForge
+Projekt jest konfigurowany pod najnowsze stabilne wydanie Minecraft Java Edition **26.3** (stan na 16 listopada 2026).
 
-## Aktualna wersja
+- Minecraft: 26.3
+- Java: 25
+- Fabric Loader: 0.20.1
+- Fabric API: 0.166.2+26.3
+- Forge: 66.1.8
+- NeoForge: 26.3.0.103
 
-Pierwszym przygotowanym celem jest **Minecraft Java 1.21.0**:
-- Fabric Loader 0.15.11 + Fabric API 0.102.0+1.21
-- Forge 51.0.33
-- NeoForge 21.0.167
-- Java 21
+Każdy loader ma osobny plik JAR. Wydania będą udostępniane dopiero po poprawnej kompilacji i testach. Sama zmiana numeru wersji nie oznacza jeszcze potwierdzonej zgodności kodu.
 
-Każdy loader ma osobny moduł i osobny plik JAR. Nie oznacza to jeszcze obsługi 1.21.1–1.21.11 — te wersje będą dodawane i sprawdzane osobno.
+## Strona
+
+Otwórz `strona/index.html` w przeglądarce. Instrukcja publikacji znajduje się w `strona/README.md`.
 
 ## Budowanie
 
-Wymagane: JDK 21 oraz Gradle.
+Wymagane JDK 25 oraz Gradle 9.6 lub zgodna wersja wymagana przez użyte pluginy.
 
-Uruchom:
-    gradle :fabric:build
-    gradle :forge:build
-    gradle :neoforge:build
+```bash
+gradle :fabric:build
+gradle :forge:build
+gradle :neoforge:build
+```
 
-Wynikowe pliki JAR powinny znaleźć się w katalogach */build/libs/.
-
-**Status:** konfiguracje źródłowe zostały przygotowane dla Minecraft 1.21.0. Kompilacja i test uruchomienia w grze nie zostały jeszcze potwierdzone.
+Wyniki powinny znaleźć się w odpowiednich katalogach `*/build/libs/`.
