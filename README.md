@@ -14,26 +14,29 @@
 ## Loadery
 
 Osobne moduły znajdują się w katalogach:
-- `fabric/` — Fabric
-- `forge/` — Forge
-- `neoforge/` — NeoForge
+- fabric/ — Fabric
+- forge/ — Forge
+- neoforge/ — NeoForge
 
-## Kompatybilność wersji Minecraft
+## Aktualna wersja
 
-Docelowy zakres projektu to **Minecraft 1.21 i nowsze wydania, aż do najnowszego stabilnego**. Nie należy jednak zakładać, że obecny kod już obsługuje cały ten zakres.
+Pierwszym przygotowanym celem jest **Minecraft Java 1.21.0**:
+- Fabric Loader 0.15.11 + Fabric API 0.102.0+1.21
+- Forge 51.0.33
+- NeoForge 21.0.167
+- Java 21
 
-Aktualna konfiguracja Gradle i metadane modułów nadal bazują na **Minecraft 1.21.1**. Nowsze wydania, w tym 26.x, wymagają osobnych konfiguracji loaderów, właściwej wersji Javy i ewentualnych zmian w API Minecrafta. Każda kombinacja wersji i loadera musi przejść osobną kompilację. Nie publikujemy jej jako wspieranej, dopóki test budowania nie przejdzie.
+Każdy loader ma osobny moduł i osobny plik JAR. Nie oznacza to jeszcze obsługi 1.21.1–1.21.11 — te wersje będą dodawane i sprawdzane osobno.
 
-## Budowanie aktualnej konfiguracji
+## Budowanie
 
 Wymagane: JDK 21 oraz Gradle.
 
-```bash
-gradle :fabric:build
-gradle :forge:build
-gradle :neoforge:build
-```
+Uruchom:
+    gradle :fabric:build
+    gradle :forge:build
+    gradle :neoforge:build
 
-Wynikowe pliki JAR powinny znaleźć się w `*/build/libs/`.
+Wynikowe pliki JAR powinny znaleźć się w katalogach */build/libs/.
 
-**Status:** źródła są w repozytorium. Kompilacja i test uruchomienia w Minecraft nie zostały jeszcze potwierdzone.
+**Status:** konfiguracje źródłowe zostały przygotowane dla Minecraft 1.21.0. Kompilacja i test uruchomienia w grze nie zostały jeszcze potwierdzone.
