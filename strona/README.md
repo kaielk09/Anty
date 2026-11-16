@@ -8,6 +8,6 @@ Statyczna strona internetowa projektu Purple Client.
 - `script.js` — menu mobilne i lekkie animacje
 
 ## Uruchomienie
-Otwórz `index.html` w przeglądarce albo opublikuj zawartość folderu `strona/` jako statyczną stronę (np. GitHub Pages).
+Otwórz `index.html` w przeglądarce albo opublikuj zawartość folderu `strona/` jako statyczną stronę (np. repozytorium Pages).
 
 Sekcja pobierania celowo nie udaje, że pliki JAR są gotowe. Linki do wydań dodamy po zbudowaniu i przetestowaniu modów.
