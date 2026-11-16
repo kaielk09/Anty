@@ -47,7 +47,7 @@ public final class PurpleClientScreen extends Screen {
     @Override
     protected void init() {
         panelWidth = Math.min(700, this.width - 24);
-        panelHeight = Math.min(420, this.height - 24);
+        panelHeight = Math.min(470, this.height - 24);
         panelLeft = (this.width - panelWidth) / 2;
         panelTop = (this.height - panelHeight) / 2;
 
@@ -122,7 +122,7 @@ public final class PurpleClientScreen extends Screen {
         this.renderBackground(graphics, mouseX, mouseY, partialTick);
 
         panelWidth = Math.min(700, this.width - 24);
-        panelHeight = Math.min(420, this.height - 24);
+        panelHeight = Math.min(470, this.height - 24);
         panelLeft = (this.width - panelWidth) / 2;
         panelTop = (this.height - panelHeight) / 2;
         int sidebarWidth = 142;
@@ -167,7 +167,7 @@ public final class PurpleClientScreen extends Screen {
             }
         }
 
-        graphics.drawString(this.font, "v0.2  •  RIGHT SHIFT  •  HUD CONFIG", panelLeft + 17,
+        graphics.drawString(this.font, "UI PROTOTYPE  •  RIGHT SHIFT", panelLeft + 17,
             panelTop + panelHeight - 20, 0xFF857991, false);
         super.render(graphics, mouseX, mouseY, partialTick);
     }
