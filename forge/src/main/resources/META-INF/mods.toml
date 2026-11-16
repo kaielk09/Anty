@@ -1,20 +1,23 @@
 modLoader="javafml"
-loaderVersion="[51,)"
+loaderVersion="[66,)"
 license="MIT"
+
 [[mods]]
 modId="purpleclient"
-version="0.1.0"
+version="0.2.0"
 displayName="Purple Client"
-description='''Purple Client in-game GUI and configurable keybind.'''
+description='''Purple Client in-game interface and configurable keybind.'''
+
 [[dependencies.purpleclient]]
 modId="forge"
 mandatory=true
-versionRange="[51,)"
+versionRange="[66.1.8,)"
 ordering="NONE"
 side="CLIENT"
+
 [[dependencies.purpleclient]]
 modId="minecraft"
 mandatory=true
-versionRange="[1.21,1.21.1)"
+versionRange="[26.3]"
 ordering="NONE"
 side="CLIENT"
