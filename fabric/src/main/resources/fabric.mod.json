@@ -3,7 +3,7 @@
   "id": "purpleclient",
   "version": "${version}",
   "name": "Purple Client",
-  "description": "In-game client GUI and configurable keybind.",
+  "description": "Purple Client — custom client-side interface for Minecraft.",
   "authors": ["Purple Client"],
   "license": "MIT",
   "environment": "client",
@@ -11,9 +11,9 @@
     "client": ["pl.purpleclient.fabric.PurpleClientFabric"]
   },
   "depends": {
-    "fabricloader": ">=0.15.11",
-    "minecraft": "1.21",
-    "java": ">=21",
+    "fabricloader": ">=0.20.1",
+    "minecraft": "~26.3",
+    "java": ">=25",
     "fabric-api": "*"
   }
 }
