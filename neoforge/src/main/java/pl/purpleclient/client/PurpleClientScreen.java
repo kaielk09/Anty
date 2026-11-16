@@ -116,12 +116,14 @@ public final class PurpleClientScreen extends Screen {
             int controlsY = panelTop + 315;
             this.addRenderableWidget(Button.builder(Component.literal("⏮"), b -> SpotifyService.previous())
                 .bounds(sx, controlsY, 62, 25).build());
+            this.addRenderableWidget(Button.builder(Component.literal("▶ Start"), b -> SpotifyService.resume())
+                .bounds(sx + 70, controlsY, 72, 25).build());
             this.addRenderableWidget(Button.builder(Component.literal("⏸ Pauza"), b -> SpotifyService.pause())
-                .bounds(sx + 70, controlsY, 92, 25).build());
+                .bounds(sx + 148, controlsY, 82, 25).build());
             this.addRenderableWidget(Button.builder(Component.literal("⏭"), b -> SpotifyService.next())
-                .bounds(sx + 170, controlsY, 62, 25).build());
+                .bounds(sx + 236, controlsY, 62, 25).build());
             this.addRenderableWidget(Button.builder(Component.literal("Odśwież"), b -> SpotifyService.refreshPlayback())
-                .bounds(sx + 240, controlsY, 90, 25).build());
+                .bounds(sx + 304, controlsY, 90, 25).build());
             this.addRenderableWidget(Button.builder(Component.literal("Wróć"), b ->
                     Minecraft.getInstance().setScreen(new PurpleClientScreen("Visuals")))
                 .bounds(sx, panelTop + 354, 90, 24).build());
