@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "purpleclient",
+  "version": "${version}",
+  "name": "Purple Client",
+  "description": "In-game client GUI and configurable keybind.",
+  "authors": ["Purple Client"],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["pl.purpleclient.fabric.PurpleClientFabric"]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "1.21.1",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
