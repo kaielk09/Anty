@@ -8,6 +8,7 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.glfw.GLFW;
 import pl.purpleclient.client.PurpleClientScreen;
+import pl.purpleclient.client.PurpleClientSettingsScreen;
 
 public final class PurpleClientFabric implements ClientModInitializer {
     private static KeyMapping openMenu;
@@ -23,7 +24,13 @@ public final class PurpleClientFabric implements ClientModInitializer {
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (openMenu.consumeClick()) {
-                Minecraft.getInstance().setScreen(new PurpleClientScreen());
+                Minecraft minecraft = Minecraft.getInstance();
+                if (minecraft.screen instanceof PurpleClientScreen
+                    || minecraft.screen instanceof PurpleClientSettingsScreen) {
+                    minecraft.setScreen(null);
+                } else if (minecraft.player != null) {
+                    minecraft.setScreen(new PurpleClientScreen());
+                }
             }
         });
     }
