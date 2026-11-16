@@ -7,7 +7,7 @@ Purple Client to klientowy projekt moda do Minecraft Java Edition. Repozytorium 
 - `fabric/` — wydanie dla Fabric
 - `forge/` — wydanie dla Forge
 - `neoforge/` — wydanie dla NeoForge
-- `strona/` — responsywna strona internetowa projektu
+- Brak wymaganej strony internetowej — projekt jest modem publikowanym jako pliki JAR na Modrinth.
 
 ## Wersja docelowa
 
@@ -22,10 +22,6 @@ Projekt jest konfigurowany pod najnowsze stabilne wydanie Minecraft Java Edition
 
 Każdy loader ma osobny plik JAR. Wydania będą udostępniane dopiero po poprawnej kompilacji i testach. Sama zmiana numeru wersji nie oznacza jeszcze potwierdzonej zgodności kodu.
 
-## Strona
-
-Otwórz `strona/index.html` w przeglądarce. Instrukcja publikacji znajduje się w `strona/README.md`.
-
 ## Budowanie
 
 Wymagane JDK 25 oraz Gradle 9.6 lub zgodna wersja wymagana przez użyte pluginy.
@@ -38,19 +34,8 @@ gradle :neoforge:build
 
 Wyniki powinny znaleźć się w odpowiednich katalogach `*/build/libs/`.
 
-## Spotify Holo
+## YouTube Music Holo
 
-Spotify Holo ma panel logowania, wyszukiwanie utworów oraz podstawowe sterowanie odtwarzaniem przez Spotify Web API.
+YouTube Music Holo nie wymaga logowania ani klucza API. Wyszukiwanie otwiera wyniki w YouTube Music, a przyciski odtwarzania, pauzy i zmiany utworu wysyłają systemowe klawisze multimedialne. Działanie sterowania zależy od systemu operacyjnego i aktywnej aplikacji lub przeglądarki obsługującej multimedia.
 
-### Konfiguracja Spotify
-
-1. Utwórz aplikację w Spotify Developer Dashboard i włącz Web API.
-2. W ustawieniach aplikacji dodaj dokładnie ten Redirect URI: `http://127.0.0.1:43821/callback`.
-3. Uruchom Purple Client. Przy pierwszym kliknięciu „Połącz Spotify” klient utworzy plik:
-   `config/purpleclient/spotify-client-id.txt`.
-4. Wklej do niego wyłącznie Spotify Client ID i uruchom ponownie połączenie.
-5. Zaloguj się w przeglądarce i zaakceptuj uprawnienia.
-
-Nie wpisuj Client Secret do moda ani do repozytorium. Logowanie używa OAuth 2.0 PKCE. Sterowanie odtwarzaniem przez Web API wymaga Spotify Premium oraz aktywnego urządzenia Spotify Connect.
-
-Panel obsługuje wyszukiwanie utworów, wybór wyniku do odtworzenia, pauzę, poprzedni/następny utwór i odczyt aktualnie odtwarzanego utworu. Wyświetlanie HUD Stick i tekstu w świecie Fly nie jest jeszcze podłączone do renderowania Minecrafta — tryb jest na razie ustawieniem interfejsu.
+Mod nie odczytuje aktualnego tytułu utworu i nie steruje bezpośrednio kolejką YouTube Music — do tego potrzebna byłaby autoryzowana integracja. Tryby Stick i Fly pozostają ustawieniami interfejsu; renderowanie HUD/tekstu w świecie wymaga osobnej implementacji.
