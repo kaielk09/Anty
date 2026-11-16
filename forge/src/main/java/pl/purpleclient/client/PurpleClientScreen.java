@@ -21,6 +21,7 @@ public final class PurpleClientScreen extends Screen {
     private static final Map<String, Integer> PRESETS = new HashMap<>();
     private static boolean SPOTIFY_HOLO_SHOW_TRACK = true;
     private static int SPOTIFY_HOLO_POSITION = 0;
+    private static int SPOTIFY_HOLO_MODE = 0;
 
     private final String category;
     private int panelLeft;
@@ -82,7 +83,17 @@ public final class PurpleClientScreen extends Screen {
                 })
                 .bounds(panelLeft + sidebarWidth + 18, panelTop + 148, 250, 26).build());
         }
-        if (!"Config".equals(category)) {
+        if ("Spotify Holo".equals(category)) {
+            this.addRenderableWidget(Button.builder(Component.literal("Display mode: " + spotifyModeLabel()), b -> {
+                    SPOTIFY_HOLO_MODE = (SPOTIFY_HOLO_MODE + 1) % 2;
+                    Minecraft.getInstance().setScreen(new PurpleClientScreen("Spotify Holo"));
+                })
+                .bounds(panelLeft + sidebarWidth + 18, panelTop + 112, 250, 26).build());
+            this.addRenderableWidget(Button.builder(Component.literal("Back to Visuals"), b ->
+                    Minecraft.getInstance().setScreen(new PurpleClientScreen("Visuals")))
+                .bounds(panelLeft + sidebarWidth + 18, panelTop + 148, 250, 26).build());
+        }
+        if (!"Config".equals(category) && !"Spotify Holo".equals(category)) {
             int contentX = panelLeft + sidebarWidth + 18;
             int contentWidth = panelWidth - sidebarWidth - 36;
             int columnWidth = (contentWidth - 10) / 2;
@@ -99,8 +110,12 @@ public final class PurpleClientScreen extends Screen {
                     })
                     .bounds(x, y, toggleWidth, 24).build());
                 this.addRenderableWidget(Button.builder(Component.literal("CFG"), b -> {
-                        PRESETS.put(module, (PRESETS.getOrDefault(module, 0) + 1) % 4);
-                        Minecraft.getInstance().setScreen(new PurpleClientScreen(category));
+                        if ("Spotify Holo".equals(module)) {
+                            Minecraft.getInstance().setScreen(new PurpleClientScreen("Spotify Holo"));
+                        } else {
+                            PRESETS.put(module, (PRESETS.getOrDefault(module, 0) + 1) % 4);
+                            Minecraft.getInstance().setScreen(new PurpleClientScreen(category));
+                        }
                     })
                     .bounds(x + toggleWidth + 4, y, 54, 24).build());
             }
@@ -117,6 +132,10 @@ public final class PurpleClientScreen extends Screen {
 
     private static String toggleLabel(String module) {
         return (ENABLED.getOrDefault(module, false) ? "ON  " : "OFF  ") + module;
+    }
+
+    private static String spotifyModeLabel() {
+        return SPOTIFY_HOLO_MODE == 1 ? "Fly (floating in world)" : "Stick (on-screen HUD)";
     }
 
     private static String spotifyPositionLabel() {
@@ -162,7 +181,14 @@ public final class PurpleClientScreen extends Screen {
         graphics.drawString(this.font, "PURPLE CLIENT  /  MODULE MANAGER", contentX, panelTop + 24, MUTED, false);
         graphics.drawString(this.font, category, contentX, panelTop + 48, TEXT, true);
 
-        if ("Config".equals(category)) {
+        if ("Spotify Holo".equals(category)) {
+            graphics.fill(contentX, panelTop + 91, contentRight, panelTop + 220, 0xFF211C2C);
+            graphics.fill(contentX, panelTop + 91, contentX + 3, panelTop + 220, PURPLE);
+            graphics.drawString(this.font, "SPOTIFY HOLO CONFIGURATION", contentX + 16, panelTop + 110, TEXT, true);
+            graphics.drawString(this.font, "Display mode: " + spotifyModeLabel(), contentX + 16, panelTop + 136, MUTED, false);
+            graphics.drawString(this.font, "Stick = HUD overlay | Fly = floating world text", contentX + 16, panelTop + 160, MUTED, false);
+            graphics.drawString(this.font, "Spotify playback connection is not implemented yet.", contentX + 16, panelTop + 188, 0xFFFFC878, false);
+        } else if ("Config".equals(category)) {
             graphics.fill(contentX, panelTop + 91, contentRight, panelTop + 220, 0xFF211C2C);
             graphics.fill(contentX, panelTop + 91, contentX + 3, panelTop + 220, PURPLE);
             graphics.drawString(this.font, "SPOTIFY HOLO", contentX + 16, panelTop + 110, TEXT, true);
