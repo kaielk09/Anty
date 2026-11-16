@@ -167,7 +167,7 @@ public final class PurpleClientScreen extends Screen {
             }
         }
 
-        graphics.drawString(this.font, "v0.2  •  RIGHT SHIFT  •  HUD CONFIG", panelLeft + 17,
+        graphics.drawString(this.font, "UI PROTOTYPE  •  RIGHT SHIFT", panelLeft + 17,
             panelTop + panelHeight - 20, 0xFF857991, false);
         super.render(graphics, mouseX, mouseY, partialTick);
     }
