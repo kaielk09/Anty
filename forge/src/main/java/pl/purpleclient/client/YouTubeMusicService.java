@@ -22,6 +22,8 @@ public final class YouTubeMusicService {
     public static String currentTrack() { return currentTrack; }
     public static List<Track> results() { return List.of(); }
 
+    public static void connect() { open("https://music.youtube.com/"); status = "Otwarto YouTube Music"; }
+
     public static void search(String text) {
         open("https://music.youtube.com/search?q=" + URLEncoder.encode(text, StandardCharsets.UTF_8));
         status = "Otwarto wyszukiwanie YouTube Music";
