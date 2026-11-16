@@ -37,3 +37,20 @@ gradle :neoforge:build
 ```
 
 Wyniki powinny znaleźć się w odpowiednich katalogach `*/build/libs/`.
+
+## Spotify Holo
+
+Spotify Holo ma panel logowania, wyszukiwanie utworów oraz podstawowe sterowanie odtwarzaniem przez Spotify Web API.
+
+### Konfiguracja Spotify
+
+1. Utwórz aplikację w Spotify Developer Dashboard i włącz Web API.
+2. W ustawieniach aplikacji dodaj dokładnie ten Redirect URI: `http://127.0.0.1:43821/callback`.
+3. Uruchom Purple Client. Przy pierwszym kliknięciu „Połącz Spotify” klient utworzy plik:
+   `config/purpleclient/spotify-client-id.txt`.
+4. Wklej do niego wyłącznie Spotify Client ID i uruchom ponownie połączenie.
+5. Zaloguj się w przeglądarce i zaakceptuj uprawnienia.
+
+Nie wpisuj Client Secret do moda ani do repozytorium. Logowanie używa OAuth 2.0 PKCE. Sterowanie odtwarzaniem przez Web API wymaga Spotify Premium oraz aktywnego urządzenia Spotify Connect.
+
+Panel obsługuje wyszukiwanie utworów, wybór wyniku do odtworzenia, pauzę, poprzedni/następny utwór i odczyt aktualnie odtwarzanego utworu. Wyświetlanie HUD Stick i tekstu w świecie Fly nie jest jeszcze podłączone do renderowania Minecrafta — tryb jest na razie ustawieniem interfejsu.
