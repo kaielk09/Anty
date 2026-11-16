@@ -178,6 +178,7 @@ public final class SpotifyService {
     }
 
     public static void play(String uri) { command("PUT", "/me/player/play", GSON.toJson(Map.of("uris", List.of(uri)))); }
+    public static void resume() { command("PUT", "/me/player/play", "{}"); }
     public static void pause() { command("PUT", "/me/player/pause", "{}"); }
     public static void next() { command("POST", "/me/player/next", null); }
     public static void previous() { command("POST", "/me/player/previous", null); }
