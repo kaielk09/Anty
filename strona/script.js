@@ -69,9 +69,6 @@ if ("IntersectionObserver" in window) {
     });
     moduleGrid.hidden = currentCategory === "combat";
     combatNote.hidden = currentCategory !== "combat";
-    if (currentCategory === "all" && visible === 0) {
-      moduleGrid.innerHTML = '<p class="demo-empty">Nie znaleziono modułów.</p>';
-    }
   }
 
   tabs.forEach((tab) => tab.addEventListener("click", () => {
