@@ -172,6 +172,7 @@ public final class SpotifyService {
                 }
                 results = List.copyOf(found);
                 status = found.isEmpty() ? "Brak wyników" : "Wyniki: " + found.size();
+                PurpleClientScreen.refreshSpotifyScreen();
             } catch (Exception e) { status = "Błąd wyszukiwania: " + safe(e.getMessage()); }
         });
     }
