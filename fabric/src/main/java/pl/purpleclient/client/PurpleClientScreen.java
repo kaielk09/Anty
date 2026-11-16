@@ -32,7 +32,7 @@ public final class PurpleClientScreen extends Screen {
     private static final List<String> VISUALS = List.of(
         "Fullbright", "Zoom", "Coordinates", "FPS Counter",
         "Ping Display", "Armor HUD", "Potion HUD", "Keystrokes",
-        "Clock", "Compass", "Crosshair Editor", "Block Outline"
+        "Clock", "Compass", "Crosshair Editor", "Block Outline", "Armor Durability", "Custom Sky", "Weather Changer", "Custom Fog", "Ambient Particles", "Item Physics", "Totem Animation", "Jump Circle"
     );
 
     public PurpleClientScreen() {
@@ -77,7 +77,7 @@ public final class PurpleClientScreen extends Screen {
                 int column = i % 2;
                 int row = i / 2;
                 int x = contentX + column * (columnWidth + 10);
-                int y = panelTop + 112 + row * 40;
+                int y = panelTop + 112 + row * 34;
                 int toggleWidth = Math.max(86, columnWidth - 63);
                 this.addRenderableWidget(Button.builder(Component.literal(toggleLabel(module)), b -> {
                         ENABLED.put(module, !ENABLED.getOrDefault(module, false));
@@ -159,7 +159,7 @@ public final class PurpleClientScreen extends Screen {
                 int row = i / 2;
                 int columnWidth = (panelWidth - sidebarWidth - 46) / 2;
                 int x = contentX + column * (columnWidth + 10);
-                int y = panelTop + 105 + row * 40;
+                int y = panelTop + 105 + row * 34;
                 graphics.fill(x, y, x + columnWidth, y + 32, 0xFF211C2C);
                 graphics.fill(x, y, x + 2, y + 32, ENABLED.getOrDefault(module, false) ? 0xFF72D69A : 0xFF574B63);
                 graphics.drawString(this.font, module, x + 9, y + 6, TEXT, false);
