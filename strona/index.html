@@ -21,7 +21,7 @@
     </a>
     <button class="menu-toggle" aria-label="Otwórz menu" aria-expanded="false"><i></i><i></i></button>
     <nav class="nav">
-      <a href="#funkcje">O kliencie</a><a href="#loadery">Loadery</a><a href="#pobierz">Pobieranie</a>
+      <a href="#funkcje">O kliencie</a><a href="#gui">ClickGUI</a><a href="#loadery">Loadery</a><a href="#pobierz">Pobieranie</a>
       <a class="nav-github" href="https://github.com/kaielk09/Anty" target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
     </nav>
   </header>
@@ -66,6 +66,60 @@
         <article class="feature-card feature-main"><div class="feature-icon">◈</div><div class="feature-number">01</div><h3>Własny interfejs</h3><p>Autorskie menu w grze z ciemnym tłem, fioletowymi akcentami i osobnym ekranem ustawień.</p><div class="feature-line"></div><span class="feature-tag">PURPLE DESIGN SYSTEM</span></article>
         <article class="feature-card"><div class="feature-icon">⌨</div><div class="feature-number">02</div><h3>Wygodny skrót</h3><p>Menu otwierane klawiszem Right Shift. Skrót można zmienić w ustawieniach sterowania Minecrafta.</p><span class="feature-tag">RIGHT SHIFT</span></article>
         <article class="feature-card"><div class="feature-icon">◉</div><div class="feature-number">03</div><h3>Gra bez pauzy</h3><p>Otwarty interfejs nie zatrzymuje świata w trybie dla jednego gracza.</p><span class="feature-tag">CLIENT SIDE</span></article>
+      </div>
+    </section>
+
+
+    <section class="clickgui-section" id="gui">
+      <div class="wrap">
+        <div class="section-heading">
+          <div><div class="eyebrow">02 / PURPLE CLICKGUI</div><h2>Twoje menu.<br><span>Twoje ustawienia.</span></h2></div>
+          <p>Podgląd interfejsu inspirowanego nowoczesnymi klientami Minecraft. Wybieraj kategorie, włączaj moduły i dostosuj wygląd panelu.</p>
+        </div>
+        <div class="clickgui-demo">
+          <div class="demo-topbar">
+            <div class="demo-brand"><span class="demo-brand-mark">P</span><div><b>PURPLE</b><small>CLIENT / CLICKGUI</small></div></div>
+            <div class="demo-window-actions"><span>CLIENT BUILD 0.2</span><i></i><i></i><i></i></div>
+          </div>
+          <div class="demo-body">
+            <aside class="demo-sidebar">
+              <div class="demo-profile"><div class="demo-avatar">P</div><div><b>Purple Client</b><small>Personal workspace</small></div></div>
+              <div class="demo-nav-label">CATEGORIES</div>
+              <div class="demo-tabs" role="tablist" aria-label="Kategorie modułów">
+                <button class="demo-tab active" data-category="all" role="tab" aria-selected="true"><span>▦</span> All <b>15</b></button>
+                <button class="demo-tab" data-category="combat" role="tab" aria-selected="false"><span>◈</span> Combat <b>—</b></button>
+                <button class="demo-tab" data-category="movement" role="tab" aria-selected="false"><span>↗</span> Movement <b>3</b></button>
+                <button class="demo-tab" data-category="visuals" role="tab" aria-selected="false"><span>◉</span> Visuals <b>12</b></button>
+              </div>
+              <div class="demo-sidebar-bottom"><span class="demo-online"></span> CLIENT READY <small>Right Shift</small></div>
+            </aside>
+            <div class="demo-main">
+              <div class="demo-main-heading"><div><div class="demo-kicker">MODULE MANAGER / <span id="demo-category-name">ALL</span></div><h3 id="demo-heading">Wszystkie moduły</h3><p id="demo-subheading">Zarządzaj funkcjami i dopasuj je do swojego stylu.</p></div><div class="demo-search"><span>⌕</span><input id="demo-search" type="search" placeholder="Szukaj modułu..." aria-label="Szukaj modułu"></div></div>
+              <div class="demo-module-grid" id="demo-modules">
+                <article class="demo-module" data-category="movement"><div class="demo-module-icon">⌁</div><div class="demo-module-copy"><b>Sprint HUD</b><small>Wskaźnik sprintu</small></div><button class="demo-switch" aria-label="Przełącz Sprint HUD" aria-pressed="false"></button><button class="demo-config" aria-label="Konfiguruj Sprint HUD">⚙</button></article>
+                <article class="demo-module" data-category="movement"><div class="demo-module-icon">↗</div><div class="demo-module-copy"><b>Speedometer</b><small>Prędkość poruszania</small></div><button class="demo-switch" aria-label="Przełącz Speedometer" aria-pressed="false"></button><button class="demo-config" aria-label="Konfiguruj Speedometer">⚙</button></article>
+                <article class="demo-module" data-category="movement"><div class="demo-module-icon">⌖</div><div class="demo-module-copy"><b>Direction HUD</b><small>Kierunek patrzenia</small></div><button class="demo-switch" aria-label="Przełącz Direction HUD" aria-pressed="false"></button><button class="demo-config" aria-label="Konfiguruj Direction HUD">⚙</button></article>
+                <article class="demo-module" data-category="visuals"><div class="demo-module-icon">☼</div><div class="demo-module-copy"><b>Fullbright</b><small>Jasność obrazu</small></div><button class="demo-switch" aria-label="Przełącz Fullbright" aria-pressed="false"></button><button class="demo-config" aria-label="Konfiguruj Fullbright">⚙</button></article>
+                <article class="demo-module" data-category="visuals"><div class="demo-module-icon">⌕</div><div class="demo-module-copy"><b>Zoom</b><small>Przybliżenie widoku</small></div><button class="demo-switch" aria-label="Przełącz Zoom" aria-pressed="false"></button><button class="demo-config" aria-label="Konfiguruj Zoom">⚙</button></article>
+                <article class="demo-module" data-category="visuals"><div class="demo-module-icon">⌗</div><div class="demo-module-copy"><b>Coordinates</b><small>Pozycja XYZ i biom</small></div><button class="demo-switch" aria-label="Przełącz Coordinates" aria-pressed="false"></button><button class="demo-config" aria-label="Konfiguruj Coordinates">⚙</button></article>
+                <article class="demo-module" data-category="visuals"><div class="demo-module-icon">▤</div><div class="demo-module-copy"><b>FPS Counter</b><small>Licznik FPS</small></div><button class="demo-switch" aria-label="Przełącz FPS Counter" aria-pressed="false"></button><button class="demo-config" aria-label="Konfiguruj FPS Counter">⚙</button></article>
+                <article class="demo-module" data-category="visuals"><div class="demo-module-icon">⌁</div><div class="demo-module-copy"><b>Ping Display</b><small>Opóźnienie połączenia</small></div><button class="demo-switch" aria-label="Przełącz Ping Display" aria-pressed="false"></button><button class="demo-config" aria-label="Konfiguruj Ping Display">⚙</button></article>
+                <article class="demo-module" data-category="visuals"><div class="demo-module-icon">⬡</div><div class="demo-module-copy"><b>Armor HUD</b><small>Stan wyposażenia</small></div><button class="demo-switch" aria-label="Przełącz Armor HUD" aria-pressed="false"></button><button class="demo-config" aria-label="Konfiguruj Armor HUD">⚙</button></article>
+                <article class="demo-module" data-category="visuals"><div class="demo-module-icon">✧</div><div class="demo-module-copy"><b>Potion HUD</b><small>Aktywne efekty</small></div><button class="demo-switch" aria-label="Przełącz Potion HUD" aria-pressed="false"></button><button class="demo-config" aria-label="Konfiguruj Potion HUD">⚙</button></article>
+                <article class="demo-module" data-category="visuals"><div class="demo-module-icon">⌨</div><div class="demo-module-copy"><b>Keystrokes</b><small>Podgląd klawiszy</small></div><button class="demo-switch" aria-label="Przełącz Keystrokes" aria-pressed="false"></button><button class="demo-config" aria-label="Konfiguruj Keystrokes">⚙</button></article>
+                <article class="demo-module" data-category="visuals"><div class="demo-module-icon">◷</div><div class="demo-module-copy"><b>Clock</b><small>Zegar ekranowy</small></div><button class="demo-switch" aria-label="Przełącz Clock" aria-pressed="false"></button><button class="demo-config" aria-label="Konfiguruj Clock">⚙</button></article>
+                <article class="demo-module" data-category="visuals"><div class="demo-module-icon">✛</div><div class="demo-module-copy"><b>Crosshair Editor</b><small>Własny celownik</small></div><button class="demo-switch" aria-label="Przełącz Crosshair Editor" aria-pressed="false"></button><button class="demo-config" aria-label="Konfiguruj Crosshair Editor">⚙</button></article>
+                <article class="demo-module" data-category="visuals"><div class="demo-module-icon">▧</div><div class="demo-module-copy"><b>Block Outline</b><small>Kontur wskazanego bloku</small></div><button class="demo-switch" aria-label="Przełącz Block Outline" aria-pressed="false"></button><button class="demo-config" aria-label="Konfiguruj Block Outline">⚙</button></article>
+                <article class="demo-module" data-category="visuals"><div class="demo-module-icon">◈</div><div class="demo-module-copy"><b>Color Theme</b><small>Kolory interfejsu</small></div><button class="demo-switch" aria-label="Przełącz Color Theme" aria-pressed="false"></button><button class="demo-config" aria-label="Konfiguruj Color Theme">⚙</button></article>
+                <article class="demo-module" data-category="visuals"><div class="demo-module-icon">▣</div><div class="demo-module-copy"><b>HUD Editor</b><small>Pozycja i rozmiar widgetów</small></div><button class="demo-switch" aria-label="Przełącz HUD Editor" aria-pressed="false"></button><button class="demo-config" aria-label="Konfiguruj HUD Editor">⚙</button></article>
+              </div>
+              <div class="demo-combat-note" id="demo-combat-note" hidden><div class="combat-note-icon">◈</div><div><b>Combat — kategoria zarezerwowana</b><p>Na tym etapie nie ma tu modułów automatyzujących ataki. Możesz korzystać z pozostałych kategorii i personalizacji HUD-u.</p></div></div>
+              <div class="demo-config-panel" id="demo-config-panel"><div><b id="demo-config-title">Ustawienia wyglądu</b><small id="demo-config-description">Wybierz ikonę ⚙ przy module, aby zobaczyć jego opcje.</small></div><div class="demo-config-controls"><label>Akcent <select id="demo-accent"><option value="violet">Purple</option><option value="blue">Blue</option><option value="rose">Rose</option><option value="mint">Mint</option></select></label><label>Skala <input id="demo-scale" type="range" min="75" max="140" value="100"><output id="demo-scale-value">100%</output></label><label>Przezroczystość <input id="demo-opacity" type="range" min="45" max="100" value="92"><output id="demo-opacity-value">92%</output></label><label>Układ <select id="demo-layout"><option>Compact</option><option>Comfortable</option><option>Minimal</option></select></label></div></div>
+              <div class="demo-footer"><span><i></i> LOCAL PREVIEW — DEMO</span><span>RIGHT SHIFT <b>↗</b></span></div>
+            </div>
+          </div>
+        </div>
+        <div class="clickgui-footnote"><span>✦</span> To interaktywny podgląd planowanego ClickGUI. Nie wszystkie przełączniki są jeszcze podłączone do działania w grze.</div>
       </div>
     </section>
 
