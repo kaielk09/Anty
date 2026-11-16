@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090711">
+  <meta name="description" content="Purple Client — fioletowy klient Minecraft Java.">
+  <title>Purple Client — Twój Minecraft. Twój styl.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Purple Client — strona główna">
+      <span class="brand-mark"><span></span><span></span><span></span></span>
+      <span>PURPLE<span class="brand-light">CLIENT</span></span>
+    </a>
+    <button class="menu-toggle" aria-label="Otwórz menu" aria-expanded="false"><i></i><i></i></button>
+    <nav class="nav">
+      <a href="#funkcje">O kliencie</a><a href="#loadery">Loadery</a><a href="#pobierz">Pobieranie</a>
+      <a class="nav-github" href="https://github.com/kaielk09/Anty" target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero wrap">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="live-dot"></span> PROJEKT W ROZWOJU <span class="eyebrow-line"></span> MINECRAFT JAVA</div>
+        <h1>Twój świat.<br><span>Twój styl.</span></h1>
+        <p class="hero-text">Poznaj Purple Client — projekt klienta Minecraft z własnym, dopracowanym interfejsem. Ciemny wygląd, fioletowe detale i miejsce na funkcje, które dopiero razem zaplanujemy.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#pobierz">Zobacz pobieranie <span>↓</span></a>
+          <a class="button button-quiet" href="https://github.com/kaielk09/Anty" target="_blank" rel="noreferrer">Zobacz kod <span>↗</span></a>
+        </div>
+        <div class="hero-meta"><span class="meta-icon">✦</span> Minecraft Java Edition <b>·</b> <span>Wersja docelowa: 26.3</span></div>
+      </div>
+      <div class="hero-art" aria-label="Podgląd interfejsu Purple Client">
+        <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+        <div class="glow-core"></div>
+        <div class="client-window">
+          <div class="window-top"><div class="window-dots"><i></i><i></i><i></i></div><span>PURPLE CLIENT <small>v0.1</small></span><span class="window-menu">•••</span></div>
+          <div class="window-body">
+            <aside class="mock-sidebar"><div class="mock-logo">P<span>.</span></div><div class="mock-nav active"><b>◈</b><span>Przegląd</span></div><div class="mock-nav"><b>⚙</b><span>Ustawienia</span></div><div class="mock-side-bottom">PC <i></i></div></aside>
+            <div class="mock-content"><div class="mock-kicker">PANEL GŁÓWNY</div><h3>Witaj w Purple Client</h3><p>Wszystko zaczyna się tutaj.</p>
+              <div class="mock-status"><div class="status-symbol">✦</div><div><strong>Twój klient</strong><small>Interfejs gotowy na nowe funkcje</small></div><span class="status-pill">AKTYWNY</span></div>
+              <div class="mock-label">SZYBKI DOSTĘP</div><div class="mock-cards"><div><span>⌨</span><b>Skróty</b><small>Konfiguracja klawiszy</small></div><div><span>◐</span><b>Wygląd</b><small>Ciemny motyw</small></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="float-chip chip-top"><span>✦</span> PURPLE MODE</div><div class="float-chip chip-bottom"><i></i> DESIGNED FOR YOU</div>
+      </div>
+      <div class="hero-scroll"><span></span> PRZEWIŃ, ABY ODKRYĆ</div>
+    </section>
+
+    <section class="stats wrap" aria-label="Informacje o projekcie">
+      <div><strong>03</strong><span>osobne loadery</span></div><div><strong>26.3</strong><span>wersja docelowa</span></div><div><strong>∞</strong><span>pomysłów do dodania</span></div><div class="stats-note">Budujemy to<br><em>krok po kroku.</em></div>
+    </section>
+
+    <section class="section wrap" id="funkcje">
+      <div class="section-heading"><div><div class="eyebrow">01 / POZNAJ PROJEKT</div><h2>Mały projekt.<br><span>Duże możliwości.</span></h2></div><p>Purple Client jest rozwijany od podstaw. Najpierw solidna baza i wygląd, a kolejne funkcje będziemy dodawać etapami.</p></div>
+      <div class="feature-grid">
+        <article class="feature-card feature-main"><div class="feature-icon">◈</div><div class="feature-number">01</div><h3>Własny interfejs</h3><p>Autorskie menu w grze z ciemnym tłem, fioletowymi akcentami i osobnym ekranem ustawień.</p><div class="feature-line"></div><span class="feature-tag">PURPLE DESIGN SYSTEM</span></article>
+        <article class="feature-card"><div class="feature-icon">⌨</div><div class="feature-number">02</div><h3>Wygodny skrót</h3><p>Menu otwierane klawiszem Right Shift. Skrót można zmienić w ustawieniach sterowania Minecrafta.</p><span class="feature-tag">RIGHT SHIFT</span></article>
+        <article class="feature-card"><div class="feature-icon">◉</div><div class="feature-number">03</div><h3>Gra bez pauzy</h3><p>Otwarty interfejs nie zatrzymuje świata w trybie dla jednego gracza.</p><span class="feature-tag">CLIENT SIDE</span></article>
+      </div>
+    </section>
+
+    <section class="loader-section" id="loadery"><div class="wrap loader-wrap">
+      <div class="section-heading"><div><div class="eyebrow">02 / WYBIERZ SWÓJ LOADER</div><h2>Trzy drogi.<br><span>Jeden Purple.</span></h2></div><p>Przygotowujemy oddzielne wydania dla najpopularniejszych loaderów. Każdy plik będzie przeznaczony wyłącznie dla swojego loadera.</p></div>
+      <div class="loader-grid">
+        <article class="loader-card"><div class="loader-top"><span class="loader-symbol fabric">F</span><span class="loader-state">W PRZYGOTOWANIU</span></div><h3>Fabric</h3><p>Lekki i nowoczesny loader modów.</p><div class="loader-bottom"><span>Minecraft 26.3</span><span>01 / 03</span></div></article>
+        <article class="loader-card"><div class="loader-top"><span class="loader-symbol forge">F</span><span class="loader-state">W PRZYGOTOWANIU</span></div><h3>Forge</h3><p>Klasyczny ekosystem modów Minecraft.</p><div class="loader-bottom"><span>Minecraft 26.3</span><span>02 / 03</span></div></article>
+        <article class="loader-card"><div class="loader-top"><span class="loader-symbol neo">N</span><span class="loader-state">W PRZYGOTOWANIU</span></div><h3>NeoForge</h3><p>Nowoczesna platforma modowania.</p><div class="loader-bottom"><span>Minecraft 26.3</span><span>03 / 03</span></div></article>
+      </div>
+    </div></section>
+
+    <section class="download-section wrap" id="pobierz">
+      <div class="download-panel"><div class="download-orb"></div><div class="download-copy"><div class="eyebrow">03 / POBIERANIE</div><h2>Gotowy na<br><span>Purple Client?</span></h2><p>Pliki do pobrania pojawią się tutaj po zakończeniu kompilacji i testów każdego wydania. Nie udostępniamy nieprzetestowanych JAR-ów.</p><a class="button button-primary" href="https://github.com/kaielk09/Anty" target="_blank" rel="noreferrer">Obserwuj projekt na GitHub <span>↗</span></a></div><div class="download-status"><div class="status-ring">✦</div><div class="download-status-title">Wersja 26.3</div><div class="download-status-sub">Trwa przygotowanie wydań</div><div class="progress-track"><span></span></div><div class="progress-label"><span>FABRIC · FORGE · NEOFORGE</span><b>WKRÓTCE</b></div></div></div>
+    </section>
+
+    <section class="final-note wrap"><span class="note-star">✳</span><div><div class="eyebrow">TO DOPIERO POCZĄTEK</div><h2>Najlepsze pomysły<br><span>są jeszcze przed nami.</span></h2></div><a href="https://github.com/kaielk09/Anty" target="_blank" rel="noreferrer">Śledź rozwój <span>↗</span></a></section>
+  </main>
+  <footer class="footer wrap"><a class="brand" href="#top"><span class="brand-mark"><span></span><span></span><span></span></span><span>PURPLE<span class="brand-light">CLIENT</span></span></a><span>Nieoficjalny projekt społecznościowy. Nie jest powiązany z Mojang ani Microsoft.</span><a href="https://github.com/kaielk09/Anty" target="_blank" rel="noreferrer">GITHUB ↗</a></footer>
+</body>
+</html>
