@@ -77,18 +77,18 @@ public final class PurpleClientScreen extends Screen {
                 int column = i % 2;
                 int row = i / 2;
                 int x = contentX + column * (columnWidth + 10);
-                int y = panelTop + 112 + row * 34;
+                int y = panelTop + 112 + row * 29;
                 int toggleWidth = Math.max(86, columnWidth - 63);
                 this.addRenderableWidget(Button.builder(Component.literal(toggleLabel(module)), b -> {
                         ENABLED.put(module, !ENABLED.getOrDefault(module, false));
                         Minecraft.getInstance().setScreen(new PurpleClientScreen(category));
                     })
-                    .bounds(x, y, toggleWidth, 28).build());
+                    .bounds(x, y, toggleWidth, 24).build());
                 this.addRenderableWidget(Button.builder(Component.literal("CFG"), b -> {
                         PRESETS.put(module, (PRESETS.getOrDefault(module, 0) + 1) % 4);
                         Minecraft.getInstance().setScreen(new PurpleClientScreen(category));
                     })
-                    .bounds(x + toggleWidth + 4, y, 54, 28).build());
+                    .bounds(x + toggleWidth + 4, y, 54, 24).build());
             }
         }
     }
@@ -159,9 +159,9 @@ public final class PurpleClientScreen extends Screen {
                 int row = i / 2;
                 int columnWidth = (panelWidth - sidebarWidth - 46) / 2;
                 int x = contentX + column * (columnWidth + 10);
-                int y = panelTop + 105 + row * 34;
-                graphics.fill(x, y, x + columnWidth, y + 32, 0xFF211C2C);
-                graphics.fill(x, y, x + 2, y + 32, ENABLED.getOrDefault(module, false) ? 0xFF72D69A : 0xFF574B63);
+                int y = panelTop + 105 + row * 29;
+                graphics.fill(x, y, x + columnWidth, y + 27, 0xFF211C2C);
+                graphics.fill(x, y, x + 2, y + 27, ENABLED.getOrDefault(module, false) ? 0xFF72D69A : 0xFF574B63);
                 graphics.drawString(this.font, module, x + 9, y + 6, TEXT, false);
                 graphics.drawString(this.font, "CFG: " + presetLabel(module), x + 9, y + 19, 0xFF9F91B2, false);
             }
