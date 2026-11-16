@@ -79,7 +79,7 @@ public final class PurpleClientScreen extends Screen {
                     Minecraft.getInstance().setScreen(new PurpleClientScreen("Config"));
                 })
                 .bounds(panelLeft + sidebarWidth + 18, panelTop + 112, 250, 26).build());
-            this.addRenderableWidget(Button.builder(Component.literal("Holo position: " + spotifyPositionLabel()), b -> {
+            this.addRenderableWidget(Button.builder(Component.literal("Holo position: " + youtubeMusicPositionLabel()), b -> {
                     YOUTUBE_MUSIC_HOLO_POSITION = (YOUTUBE_MUSIC_HOLO_POSITION + 1) % 3;
                     Minecraft.getInstance().setScreen(new PurpleClientScreen("Config"));
                 })
@@ -87,13 +87,13 @@ public final class PurpleClientScreen extends Screen {
         }
         if ("YouTube Music Holo".equals(category)) {
             int sx = panelLeft + sidebarWidth + 18;
-            this.addRenderableWidget(Button.builder(Component.literal("Tryb: " + spotifyModeLabel()), b -> {
+            this.addRenderableWidget(Button.builder(Component.literal("Tryb: " + youtubeMusicModeLabel()), b -> {
                     YOUTUBE_MUSIC_HOLO_MODE = (YOUTUBE_MUSIC_HOLO_MODE + 1) % 2;
                     Minecraft.getInstance().setScreen(new PurpleClientScreen("YouTube Music Holo"));
                 }).bounds(sx + 270, panelTop + 104, 150, 24).build());
             this.addRenderableWidget(Button.builder(Component.literal("Otwórz YouTube Music"), b -> YouTubeMusicService.connect())
                 .bounds(sx, panelTop + 104, 150, 24).build());
-            this.addRenderableWidget(Button.builder(Component.literal("Odśwież utwór"), b -> YouTubeMusicService.refreshPlayback())
+            this.addRenderableWidget(Button.builder(Component.literal("Odśwież status"), b -> YouTubeMusicService.refreshPlayback())
                 .bounds(sx + 158, panelTop + 104, 105, 24).build());
 
             youtubeMusicSearchBox = new EditBox(this.font, sx, panelTop + 138, 250, 24, Component.literal("Szukaj utworu"));
@@ -169,11 +169,11 @@ public final class PurpleClientScreen extends Screen {
         return (ENABLED.getOrDefault(module, false) ? "ON  " : "OFF  ") + module;
     }
 
-    private static String spotifyModeLabel() {
+    private static String youtubeMusicModeLabel() {
         return YOUTUBE_MUSIC_HOLO_MODE == 1 ? "Fly (floating in world)" : "Stick (on-screen HUD)";
     }
 
-    private static String spotifyPositionLabel() {
+    private static String youtubeMusicPositionLabel() {
         return switch (YOUTUBE_MUSIC_HOLO_POSITION) {
             case 1 -> "Bottom left";
             case 2 -> "Bottom right";
@@ -181,7 +181,7 @@ public final class PurpleClientScreen extends Screen {
         };
     }
 
-    public static void refreshSpotifyScreen() {
+    public static void refreshYouTubeMusicScreen() {
         Minecraft minecraft = Minecraft.getInstance();
         minecraft.execute(() -> {
             if (minecraft.screen instanceof PurpleClientScreen screen && "YouTube Music Holo".equals(screen.category)) {
@@ -229,7 +229,7 @@ public final class PurpleClientScreen extends Screen {
             graphics.fill(contentX, panelTop + 91, contentRight, panelTop + 400, 0xFF211C2C);
             graphics.fill(contentX, panelTop + 91, contentX + 3, panelTop + 400, PURPLE);
             graphics.drawString(this.font, "YOUTUBE MUSIC", contentX + 16, panelTop + 94, TEXT, true);
-            graphics.drawString(this.font, "Tryb: " + spotifyModeLabel(), contentX + 16, panelTop + 124, MUTED, false);
+            graphics.drawString(this.font, "Tryb: " + youtubeMusicModeLabel(), contentX + 16, panelTop + 124, MUTED, false);
             graphics.drawString(this.font, "Status: " + YouTubeMusicService.status(), contentX + 16, panelTop + 296, 0xFFB9E7C6, false);
             graphics.drawString(this.font, "Teraz: " + YouTubeMusicService.currentTrack(), contentX + 16, panelTop + 345, TEXT, false);
             graphics.drawString(this.font, "Wybierz wynik wyszukiwania, aby rozpocząć odtwarzanie.", contentX + 16, panelTop + 380, MUTED, false);
@@ -238,7 +238,7 @@ public final class PurpleClientScreen extends Screen {
             graphics.fill(contentX, panelTop + 91, contentX + 3, panelTop + 220, PURPLE);
             graphics.drawString(this.font, "YOUTUBE MUSIC HOLO", contentX + 16, panelTop + 110, TEXT, true);
             graphics.drawString(this.font, "Track title: " + (YOUTUBE_MUSIC_HOLO_SHOW_TRACK ? "enabled" : "disabled"), contentX + 16, panelTop + 135, MUTED, false);
-            graphics.drawString(this.font, "Position: " + spotifyPositionLabel(), contentX + 16, panelTop + 154, MUTED, false);
+            graphics.drawString(this.font, "Position: " + youtubeMusicPositionLabel(), contentX + 16, panelTop + 154, MUTED, false);
             graphics.drawString(this.font, "YouTube Music status: " + YouTubeMusicService.status(), contentX + 16, panelTop + 184, 0xFFFFC878, false);
         } else {
             graphics.drawString(this.font, "Kliknij moduł, aby zmienić jego stan. CFG zmienia profil ustawień.", contentX,
