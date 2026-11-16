@@ -1,15 +1,15 @@
 plugins {
-    id 'fabric-loom' version '1.9-SNAPSHOT'
+    id 'fabric-loom' version '1.6-SNAPSHOT'
 }
 version = '0.1.0'
 group = 'pl.purpleclient'
-base { archivesName = 'purpleclient-fabric' }
+base { archivesName = 'purpleclient-fabric-1.21' }
 repositories { }
 dependencies {
-    minecraft 'com.mojang:minecraft:1.21.1'
+    minecraft 'com.mojang:minecraft:1.21'
     mappings loom.officialMojangMappings()
-    modImplementation 'net.fabricmc:fabric-loader:0.16.10'
-    modImplementation 'net.fabricmc.fabric-api:fabric-api:0.116.18+1.21.1'
+    modImplementation 'net.fabricmc:fabric-loader:0.15.11'
+    modImplementation 'net.fabricmc.fabric-api:fabric-api:0.102.0+1.21'
 }
 processResources {
     inputs.property 'version', project.version
