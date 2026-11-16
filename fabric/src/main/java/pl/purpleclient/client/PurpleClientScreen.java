@@ -179,6 +179,15 @@ public final class PurpleClientScreen extends Screen {
         };
     }
 
+    public static void refreshSpotifyScreen() {
+        Minecraft minecraft = Minecraft.getInstance();
+        minecraft.execute(() -> {
+            if (minecraft.screen instanceof PurpleClientScreen screen && "Spotify Holo".equals(screen.category)) {
+                minecraft.setScreen(new PurpleClientScreen("Spotify Holo"));
+            }
+        });
+    }
+
     private static String presetLabel(String module) {
         return switch (PRESETS.getOrDefault(module, 0)) {
             case 1 -> "Compact";
@@ -228,7 +237,7 @@ public final class PurpleClientScreen extends Screen {
             graphics.drawString(this.font, "SPOTIFY HOLO", contentX + 16, panelTop + 110, TEXT, true);
             graphics.drawString(this.font, "Track title: " + (SPOTIFY_HOLO_SHOW_TRACK ? "enabled" : "disabled"), contentX + 16, panelTop + 135, MUTED, false);
             graphics.drawString(this.font, "Position: " + spotifyPositionLabel(), contentX + 16, panelTop + 154, MUTED, false);
-            graphics.drawString(this.font, "Spotify account connection is not configured yet.", contentX + 16, panelTop + 184, 0xFFFFC878, false);
+            graphics.drawString(this.font, "Spotify status: " + SpotifyService.status(), contentX + 16, panelTop + 184, 0xFFFFC878, false);
         } else {
             graphics.drawString(this.font, "Kliknij moduł, aby zmienić jego stan. CFG zmienia profil ustawień.", contentX,
                 panelTop + 68, MUTED, false);
