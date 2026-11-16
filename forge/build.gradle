@@ -13,7 +13,6 @@ java {
 
 minecraft {
     mappings channel: 'official', version: '26.3'
-    copyIdeResources = true
     runs {
         client {
             workingDirectory project.file('run')
