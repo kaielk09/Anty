@@ -197,7 +197,7 @@ public final class PurpleClientScreen extends Screen {
             graphics.drawString(this.font, "YOUTUBE MUSIC HOLO", contentX + 16, panelTop + 110, TEXT, true);
             graphics.drawString(this.font, "Track title: " + (YOUTUBE_MUSIC_HOLO_SHOW_TRACK ? "enabled" : "disabled"), contentX + 16, panelTop + 135, MUTED, false);
             graphics.drawString(this.font, "Position: " + youtubeMusicPositionLabel(), contentX + 16, panelTop + 154, MUTED, false);
-            graphics.drawString(this.font, "YouTube Music status: " + YouTubeMusicService.status(), contentX + 16, panelTop + 184, 0xFFFFC878, false);
+            graphics.drawString(this.font, "Odtwarzacz w grze: dostępny obecnie tylko w wersji Fabric", contentX + 16, panelTop + 184, 0xFFFFC878, false);
         } else {
             graphics.drawString(this.font, "Kliknij moduł, aby zmienić jego stan. CFG zmienia profil ustawień.", contentX,
                 panelTop + 68, MUTED, false);
