@@ -64,69 +64,39 @@ public final class PurpleClientScreen extends Screen {
             String selected = categories[i];
             this.addRenderableWidget(Button.builder(Component.literal(
                     (selected.equals(category) ? "•  " : "   ") + selected), b ->
-                    Minecraft.getInstance().setScreen(new PurpleClientScreen(selected)))
+                    Minecraft.getInstance().gui.setScreen(new PurpleClientScreen(selected)))
                 .bounds(tabX, panelTop + 94 + i * 34, tabWidth, 27).build());
         }
 
         this.addRenderableWidget(Button.builder(Component.literal("Zamknij"), b ->
-                Minecraft.getInstance().setScreen(null))
+                Minecraft.getInstance().gui.setScreen(null))
             .bounds(panelLeft + panelWidth - 102, panelTop + panelHeight - 38, 86, 25).build());
 
         List<String> modules = getModules();
         if ("Config".equals(category)) {
             this.addRenderableWidget(Button.builder(Component.literal("Show track title: " + (YOUTUBE_MUSIC_HOLO_SHOW_TRACK ? "ON" : "OFF")), b -> {
                     YOUTUBE_MUSIC_HOLO_SHOW_TRACK = !YOUTUBE_MUSIC_HOLO_SHOW_TRACK;
-                    Minecraft.getInstance().setScreen(new PurpleClientScreen("Config"));
+                    Minecraft.getInstance().gui.setScreen(new PurpleClientScreen("Config"));
                 })
                 .bounds(panelLeft + sidebarWidth + 18, panelTop + 112, 250, 26).build());
             this.addRenderableWidget(Button.builder(Component.literal("Holo position: " + youtubeMusicPositionLabel()), b -> {
                     YOUTUBE_MUSIC_HOLO_POSITION = (YOUTUBE_MUSIC_HOLO_POSITION + 1) % 3;
-                    Minecraft.getInstance().setScreen(new PurpleClientScreen("Config"));
+                    Minecraft.getInstance().gui.setScreen(new PurpleClientScreen("Config"));
                 })
                 .bounds(panelLeft + sidebarWidth + 18, panelTop + 148, 250, 26).build());
         }
         if ("YouTube Music Holo".equals(category)) {
             int sx = panelLeft + sidebarWidth + 18;
+            this.addRenderableWidget(Button.builder(Component.literal("Otwórz YouTube Music w grze"), b ->
+                    Minecraft.getInstance().gui.setScreen(new YouTubeMusicBrowserScreen(this)))
+                .bounds(sx, panelTop + 104, 240, 28).build());
             this.addRenderableWidget(Button.builder(Component.literal("Tryb: " + youtubeMusicModeLabel()), b -> {
                     YOUTUBE_MUSIC_HOLO_MODE = (YOUTUBE_MUSIC_HOLO_MODE + 1) % 2;
-                    Minecraft.getInstance().setScreen(new PurpleClientScreen("YouTube Music Holo"));
-                }).bounds(sx + 270, panelTop + 104, 150, 24).build());
-            this.addRenderableWidget(Button.builder(Component.literal("Otwórz YouTube Music"), b -> YouTubeMusicService.connect())
-                .bounds(sx, panelTop + 104, 150, 24).build());
-            this.addRenderableWidget(Button.builder(Component.literal("Odśwież status"), b -> YouTubeMusicService.refreshPlayback())
-                .bounds(sx + 158, panelTop + 104, 105, 24).build());
-
-            youtubeMusicSearchBox = new EditBox(this.font, sx, panelTop + 138, 250, 24, Component.literal("Szukaj utworu"));
-            youtubeMusicSearchBox.setMaxLength(120);
-            youtubeMusicSearchBox.setValue("");
-            this.addRenderableWidget(youtubeMusicSearchBox);
-            this.addRenderableWidget(Button.builder(Component.literal("Szukaj"), b -> {
-                    if (youtubeMusicSearchBox != null && !youtubeMusicSearchBox.getValue().isBlank())
-                        YouTubeMusicService.search(youtubeMusicSearchBox.getValue().trim());
-                }).bounds(sx + 258, panelTop + 138, 90, 24).build());
-
-            int resultIndex = 0;
-            for (YouTubeMusicService.Track track : YouTubeMusicService.results()) {
-                if (resultIndex >= 5) break;
-                int rowY = panelTop + 174 + resultIndex * 27;
-                this.addRenderableWidget(Button.builder(Component.literal("▶  " + track.toString()), b -> YouTubeMusicService.play(track.uri()))
-                    .bounds(sx, rowY, Math.min(430, panelWidth - sidebarWidth - 38), 23).build());
-                resultIndex++;
-            }
-            int controlsY = panelTop + 315;
-            this.addRenderableWidget(Button.builder(Component.literal("⏮"), b -> YouTubeMusicService.previous())
-                .bounds(sx, controlsY, 62, 25).build());
-            this.addRenderableWidget(Button.builder(Component.literal("▶ Start"), b -> YouTubeMusicService.resume())
-                .bounds(sx + 70, controlsY, 72, 25).build());
-            this.addRenderableWidget(Button.builder(Component.literal("⏸ Pauza"), b -> YouTubeMusicService.pause())
-                .bounds(sx + 148, controlsY, 82, 25).build());
-            this.addRenderableWidget(Button.builder(Component.literal("⏭"), b -> YouTubeMusicService.next())
-                .bounds(sx + 236, controlsY, 62, 25).build());
-            this.addRenderableWidget(Button.builder(Component.literal("Odśwież"), b -> YouTubeMusicService.refreshPlayback())
-                .bounds(sx + 304, controlsY, 90, 25).build());
+                    Minecraft.getInstance().gui.setScreen(new PurpleClientScreen("YouTube Music Holo"));
+                }).bounds(sx, panelTop + 142, 240, 26).build());
             this.addRenderableWidget(Button.builder(Component.literal("Wróć"), b ->
-                    Minecraft.getInstance().setScreen(new PurpleClientScreen("Visuals")))
-                .bounds(sx, panelTop + 354, 90, 24).build());
+                    Minecraft.getInstance().gui.setScreen(new PurpleClientScreen("Visuals")))
+                .bounds(sx, panelTop + 180, 90, 24).build());
         }
         if (!"Config".equals(category) && !"YouTube Music Holo".equals(category)) {
             int contentX = panelLeft + sidebarWidth + 18;
@@ -141,15 +111,15 @@ public final class PurpleClientScreen extends Screen {
                 int toggleWidth = Math.max(86, columnWidth - 63);
                 this.addRenderableWidget(Button.builder(Component.literal(toggleLabel(module)), b -> {
                         ENABLED.put(module, !ENABLED.getOrDefault(module, false));
-                        Minecraft.getInstance().setScreen(new PurpleClientScreen(category));
+                        Minecraft.getInstance().gui.setScreen(new PurpleClientScreen(category));
                     })
                     .bounds(x, y, toggleWidth, 24).build());
                 this.addRenderableWidget(Button.builder(Component.literal("CFG"), b -> {
                         if ("YouTube Music Holo".equals(module)) {
-                            Minecraft.getInstance().setScreen(new PurpleClientScreen("YouTube Music Holo"));
+                            Minecraft.getInstance().gui.setScreen(new PurpleClientScreen("YouTube Music Holo"));
                         } else {
                             PRESETS.put(module, (PRESETS.getOrDefault(module, 0) + 1) % 4);
-                            Minecraft.getInstance().setScreen(new PurpleClientScreen(category));
+                            Minecraft.getInstance().gui.setScreen(new PurpleClientScreen(category));
                         }
                     })
                     .bounds(x + toggleWidth + 4, y, 54, 24).build());
@@ -185,7 +155,7 @@ public final class PurpleClientScreen extends Screen {
         Minecraft minecraft = Minecraft.getInstance();
         minecraft.execute(() -> {
             if (minecraft.screen instanceof PurpleClientScreen screen && "YouTube Music Holo".equals(screen.category)) {
-                minecraft.setScreen(new PurpleClientScreen("YouTube Music Holo"));
+                minecraft.gui.setScreen(new PurpleClientScreen("YouTube Music Holo"));
             }
         });
     }
@@ -226,13 +196,12 @@ public final class PurpleClientScreen extends Screen {
         graphics.drawString(this.font, category, contentX, panelTop + 48, TEXT, true);
 
         if ("YouTube Music Holo".equals(category)) {
-            graphics.fill(contentX, panelTop + 91, contentRight, panelTop + 400, 0xFF211C2C);
-            graphics.fill(contentX, panelTop + 91, contentX + 3, panelTop + 400, PURPLE);
-            graphics.drawString(this.font, "YOUTUBE MUSIC", contentX + 16, panelTop + 94, TEXT, true);
-            graphics.drawString(this.font, "Tryb: " + youtubeMusicModeLabel(), contentX + 16, panelTop + 124, MUTED, false);
-            graphics.drawString(this.font, "Status: " + YouTubeMusicService.status(), contentX + 16, panelTop + 296, 0xFFB9E7C6, false);
-            graphics.drawString(this.font, "Teraz: " + YouTubeMusicService.currentTrack(), contentX + 16, panelTop + 345, TEXT, false);
-            graphics.drawString(this.font, "Wybierz wynik wyszukiwania, aby rozpocząć odtwarzanie.", contentX + 16, panelTop + 380, MUTED, false);
+            graphics.fill(contentX, panelTop + 91, contentRight, panelTop + 245, 0xFF211C2C);
+            graphics.fill(contentX, panelTop + 91, contentX + 3, panelTop + 245, PURPLE);
+            graphics.drawString(this.font, "YOUTUBE MUSIC", contentX + 16, panelTop + 112, TEXT, true);
+            graphics.drawString(this.font, "Wbudowany odtwarzacz Chromium działa wewnątrz Minecrafta.", contentX + 16, panelTop + 142, MUTED, false);
+            graphics.drawString(this.font, "Kliknij przycisk, aby zalogować się i używać YouTube Music.", contentX + 16, panelTop + 162, MUTED, false);
+            graphics.drawString(this.font, "Logowanie odbywa się bezpośrednio na stronie Google.", contentX + 16, panelTop + 182, MUTED, false);
         } else if ("Config".equals(category)) {
             graphics.fill(contentX, panelTop + 91, contentRight, panelTop + 220, 0xFF211C2C);
             graphics.fill(contentX, panelTop + 91, contentX + 3, panelTop + 220, PURPLE);
