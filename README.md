@@ -36,6 +36,10 @@ Wyniki powinny znaleźć się w odpowiednich katalogach `*/build/libs/`.
 
 ## YouTube Music Holo
 
-YouTube Music Holo nie wymaga logowania ani klucza API. Wyszukiwanie otwiera wyniki w YouTube Music, a przyciski odtwarzania, pauzy i zmiany utworu wysyłają systemowe klawisze multimedialne. Działanie sterowania zależy od systemu operacyjnego i aktywnej aplikacji lub przeglądarki obsługującej multimedia.
+W wydaniu Fabric odtwarzacz YouTube Music jest osadzony bezpośrednio w oknie Minecrafta przez bibliotekę MCEF Modern (Chromium Embedded Framework). Do uruchomienia wymagany jest również mod MCEF Modern w wersji co najmniej 0.3.3. Po wejściu w moduł YouTube Music Holo wybierz **Otwórz YouTube Music w grze**. Logowanie odbywa się na stronie Google/YouTube wyświetlanej w osadzonym Chromium; Purple Client nie prosi o hasło i go nie zapisuje.
 
-Mod nie odczytuje aktualnego tytułu utworu i nie steruje bezpośrednio kolejką YouTube Music — do tego potrzebna byłaby autoryzowana integracja. Tryby Stick i Fly pozostają ustawieniami interfejsu; renderowanie HUD/tekstu w świecie wymaga osobnej implementacji.
+MCEF Modern obsługuje obecnie Minecraft 26.3 na Fabric. Dlatego osadzony odtwarzacz jest na razie dostępny wyłącznie w pliku Fabric. Wersje Forge i NeoForge pokazują informację o tym ograniczeniu i nie otwierają zewnętrznej przeglądarki.
+
+MCEF Modern pobiera komponenty Chromium przy pierwszym uruchomieniu. Wymaga połączenia z internetem i dodatkowego miejsca na dysku. Google może ograniczać logowanie w osadzonych przeglądarkach — jeśli strona logowania odmówi działania, nie należy wpisywać hasła w żadnym innym oknie ani udostępniać go modowi.
+
+Integracja nie odczytuje jeszcze metadanych aktualnego utworu do HUD ani nie udostępnia osobnych przycisków Stick/Fly. Te funkcje wymagają kolejnego etapu integracji i testów.
