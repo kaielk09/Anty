@@ -2,6 +2,7 @@ package pl.purpleclient.fabric;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.api.ClientModInitializer;
+import net.dimaskama.mcef.api.MCEFApi;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.KeyMapping;
@@ -15,6 +16,7 @@ public final class PurpleClientFabric implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        MCEFApi.initialize();
         openMenu = KeyBindingHelper.registerKeyBinding(new KeyMapping(
             "key.purpleclient.open",
             InputConstants.Type.KEYSYM,
