@@ -2,11 +2,16 @@ plugins {
     id 'net.fabricmc.fabric-loom' version '1.19-SNAPSHOT'
 }
 
+repositories {
+    maven { url = uri('https://maven.dimaskama.net/releases') }
+}
+
 base {
     archivesName = 'purpleclient-fabric-26.3'
 }
 
 dependencies {
+    modImplementation "net.dimaskama:mcef-modern:0.3.3"
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     implementation "net.fabricmc:fabric-loader:0.20.1"
     implementation "net.fabricmc.fabric-api:fabric-api:0.166.2+26.3"
