@@ -107,19 +107,19 @@ public final class YouTubeMusicBrowserScreen extends Screen {
     @Override
     public boolean keyPressed(KeyEvent event) {
         if (browser != null) browser.onKeyPressed(event);
-        return true;
+        return super.keyPressed(event);
     }
 
     @Override
     public boolean keyReleased(KeyEvent event) {
         if (browser != null) browser.onKeyReleased(event);
-        return true;
+        return super.keyReleased(event);
     }
 
     @Override
     public boolean charTyped(CharacterEvent event) {
         if (browser != null) browser.onCharTyped(event);
-        return true;
+        return super.charTyped(event);
     }
 
     @Override
