@@ -36,7 +36,7 @@ Wyniki powinny znaleźć się w odpowiednich katalogach `*/build/libs/`.
 
 ## YouTube Music Holo
 
-W wydaniu Fabric odtwarzacz YouTube Music jest osadzony bezpośrednio w oknie Minecrafta przez bibliotekę MCEF Modern (Chromium Embedded Framework). Po wejściu w moduł YouTube Music Holo wybierz **Otwórz YouTube Music w grze**. Logowanie odbywa się na stronie Google/YouTube wyświetlanej w osadzonym Chromium; Purple Client nie prosi o hasło i go nie zapisuje.
+W wydaniu Fabric odtwarzacz YouTube Music jest osadzony bezpośrednio w oknie Minecrafta przez bibliotekę MCEF Modern (Chromium Embedded Framework). Do uruchomienia wymagany jest również mod MCEF Modern w wersji co najmniej 0.3.3. Po wejściu w moduł YouTube Music Holo wybierz **Otwórz YouTube Music w grze**. Logowanie odbywa się na stronie Google/YouTube wyświetlanej w osadzonym Chromium; Purple Client nie prosi o hasło i go nie zapisuje.
 
 MCEF Modern obsługuje obecnie Minecraft 26.3 na Fabric. Dlatego osadzony odtwarzacz jest na razie dostępny wyłącznie w pliku Fabric. Wersje Forge i NeoForge pokazują informację o tym ograniczeniu i nie otwierają zewnętrznej przeglądarki.
 
